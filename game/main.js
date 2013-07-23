@@ -6,14 +6,20 @@ window.onload = function() {
 	// Start Pixi.
 	Crafty.pixi.init(800, 480);
 	
-    /*var graphics = new PIXI.Graphics();
-	graphics.beginFill(0xAA0000);
-	graphics.moveTo(0,0);
-	graphics.lineTo(-50, 100);
-	graphics.lineTo(50, 100);
-	graphics.endFill();
-	Crafty.pixi.container.addChild(graphics);*/
+	e = Crafty.e("2D, PIXI").attr({x: 100, y: 100, w: 100, h: 50});
+	e.pixi_setGraphics();
+	e.pixi_setInteractive(true);
+	e.pixi_setHitArea();
 	
-	e = Crafty.e("2D, PIXI");//.attr({x: 0, y: 0, w: 10, h: 10});
+	/*graphics = new PIXI.Graphics();
+	Crafty.pixi.container.addChild(graphics);
+	graphics.beginFill(0xAA0000);
+	graphics.drawCircle(100, 100, 200);
+	graphics.interactive = true;
+	graphics.hitArea = new PIXI.Rectangle(-100, -100, 200, 200);
+	graphics.drag = false;
+	graphics.mousedown = graphics.touchstart = function(data) {
+	    console.log(data);
+	};*/
 	
 };

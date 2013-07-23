@@ -1,7 +1,12 @@
 Crafty.c('PIXI', {
 	
 	pixi_object: undefined,
+	
 	pixi_graphics: undefined,
+	
+	pixi_pressed: undefined,
+	pixi_upTimer: undefined,
+	pixi_downTimer: undefined,
 	
 	init: function() {
 		
@@ -13,8 +18,47 @@ Crafty.c('PIXI', {
 		this.bind( 'Move', this.pixi_move );
 		this.bind( 'Rotate', this.pixi_rotate );
 		
-		this.pixi_object.interaction = true;
-		this.pixi_object.hitArea = new PIXI.Rectangle(0, 0, this.w, this.h);
+		this.pixi_pressed = false;
+		this.pixi_upTimer = 0;
+		this.pixi_downTimer = 0;
+		this.bind( 'EnterFrame', function(data) {
+			if ( this.pixi_pressed && this.pixi_downTimer >= 0 ) this.pixi_downTimer++ ;
+			if ( !this.pixi_pressed ) this.pixi_upTimer++ ;
+			if ( this.pixi_downTimer >= 1*60  ) {
+				this.trigger('PixiLongPress');
+				this.pixi_downTimer = -1;
+			}
+		} );
+		var self = this;
+		this.pixi_object.mousedown = this.pixi_object.touchstart = function(data)  {
+			self.trigger('PixiDown', data);
+			self.pixi_pressed = true;
+			self.pixi_downTimer = 0;
+		};
+		this.pixi_object.mouseup = this.pixi_object.touchend = function(data)  {
+			self.trigger('PixiUp', data);
+			self.pixi_pressed = false;
+			if ( self.pixi_downTimer > 0 ) {
+				if ( self.pixi_upTimer <= 0.3 * 60 ) {
+					self.trigger('PixiDoubleClick', data);
+				} else {
+					self.trigger('PixiClick', data);
+				}
+			}
+			console.log(self.pixi_upTimer);
+			self.pixi_upTimer = 0;
+		};
+		this.pixi_object.mousemove = this.pixi_object.touchmove = function(data)  {
+			if ( self.pixi_pressed ) {
+				self.trigger('PixiDrag', data);
+				self.pixi_downTimer = -1;
+			}
+		};
+		
+		/*this.bind('PixiLongPress', function(){console.log('PixiLongPress');});
+		this.bind('PixiDrag', function(){console.log('PixiDrag');});
+		this.bind('PixiClick', function(){console.log('PixiClick');});
+		this.bind('PixiDoubleClick', function(){console.log('PixiDoubleClick');});*/
 		
 	},
 	
@@ -33,13 +77,21 @@ Crafty.c('PIXI', {
 		}
 	},
 	
+	pixi_setInteractive: function( flag ) {
+		this.pixi_object.interactive = flag;
+	},
+	pixi_setHitArea: function( hitArea ) {
+		if ( !hitArea ) {
+			this.pixi_object.hitArea = new PIXI.Rectangle( -this.w/2, -this.h/2, this.w, this.h );
+		} else {
+			this.pixi_object.hitArea = hitArea;
+		}
+	},
+	
 	pixi_move: function(data) {
 		
 		this.pixi_object.position.x = this.x;
 		this.pixi_object.position.y = this.y;
-		
-		this.pixi_object.hitArea.width = this.w;
-		this.pixi_object.hitArea.height = this.h;
 		
 	},
 	

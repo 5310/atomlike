@@ -10,7 +10,7 @@ Crafty.extend({pixi: {
 		
 		var self = this;
 		
-		self.stage = new PIXI.Stage(0xABCDEF);
+		self.stage = new PIXI.Stage(0xABCDEF, true);
 		
 		self.renderer = PIXI.autoDetectRenderer(width, height, null, true);
 		document.getElementById('px-stage').appendChild(self.renderer.view);
