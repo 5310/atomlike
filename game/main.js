@@ -14,6 +14,6 @@ window.onload = function() {
 	graphics.endFill();
 	Crafty.pixi.container.addChild(graphics);*/
 	
-	e = Crafty.e("2D, PIXI").attr({x: 0, y: 0, w: 10, h: 10});
+	e = Crafty.e("2D, PIXI");//.attr({x: 0, y: 0, w: 10, h: 10});
 	
 };
