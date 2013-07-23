@@ -23,7 +23,7 @@ Crafty.c('PIXI', {
 			if ( this.pixi_object.children.length ) this.pixi_object.removeChild(this.pixi_graphics);
 			this.pixi_graphics = new PIXI.Graphics();
 			this.pixi_graphics.beginFill(0x000000);
-			this.pixi_graphics.drawRect(this.w > 0 ? -this.w/2 : -10, this.h > 0 ? -this.h/2 : -10, this.w > 0 ? this.w : 20, this.h > 0 ? this.h : 20);		
+			this.pixi_graphics.drawRect( -this.w/2, -this.h/2, this.w, this.h );		
 			this.pixi_graphics.endFill();
 			this.pixi_object.addChild(this.pixi_graphics);
 		} else {
