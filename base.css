@@ -1,0 +1,19 @@
+body {
+	margin: 0;
+}
+
+#cr-stage {
+	display: none;
+	opacity: 0.5;
+	position: absolute;
+	top: 0; left: 0;
+}
+
+#px-stage {
+	/* http://bit.ly/163RUHV */
+	background:url(
+		data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATUlEQVQYV4XQ0QkAIAgE0JzF/UdyluICD5XSviqeeJyY2V7hqKrEN+4wEuEPARN2iHBCF9Y8nqn+P4NXhI0J1gYw4LEIO8SME0r1TKUfEoQ1+UtkV60AAAAASUVORK5CYII=
+	) repeat;
+	position: absolute;
+	top: 0; left: 0;
+}
