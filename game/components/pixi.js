@@ -13,7 +13,7 @@ Crafty.c('PIXI', {
 		this.requires('2D');
 		
 		this.pixi_object = new PIXI.DisplayObjectContainer();
-		Crafty.pixi.container.addChild(this.pixi_object);
+		this.pixi_setContainer();
 		
 		this.bind( 'Move', this.pixi_move );
 		this.bind( 'Rotate', this.pixi_rotate );
@@ -60,6 +60,14 @@ Crafty.c('PIXI', {
 		this.bind('PixiClick', function(){console.log('PixiClick');});
 		this.bind('PixiDoubleClick', function(){console.log('PixiDoubleClick');});*/
 		
+	},
+	
+	pixi_setContainer: function(container) {
+		var container = container ? container : Crafty.pixi.container;
+		if ( this.pixi_object.parent !== container ) {
+			if ( this.pixi_object.parent !== null ) this.pixi_object.parent.removeChild(this.pixi_object);
+			container.addChild(this.pixi_object);
+		}
 	},
 	
 	pixi_setGraphics: function(graphics) {
