@@ -8,7 +8,7 @@ window.onload = function() {
 	
 	e = Crafty.e("2D, PIXI").attr({x: 100, y: 100, w: 100, h: 50});
 	e.pixi_setGraphics();
-	e.pixi_setInteractive(true);
+	e.pixi_setInteractive( true, true );
 	e.pixi_setHitArea();
 	
 	/*graphics = new PIXI.Graphics();

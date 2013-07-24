@@ -85,8 +85,9 @@ Crafty.c('PIXI', {
 		}
 	},
 	
-	pixi_setInteractive: function( flag ) {
-		this.pixi_object.interactive = flag;
+	pixi_setInteractive: function( interactive, buttonMode ) {
+		this.pixi_object.interactive = !!interactive;
+		this.pixi_object.buttonMode = !!buttonMode;
 	},
 	pixi_setHitArea: function( hitArea ) {
 		if ( !hitArea ) {
