@@ -10,7 +10,7 @@ window.onload = function() {
     
     f = Crafty.e("Flock");
     
-    for ( var c = 100; c > 0; c-- ) {
+    for ( var c = 50; c > 0; c-- ) {
         var b = Crafty.e("2D, PIXI, Boid");
         b.attr({ w: 4, h: 4 });
         b.attr({ x: Math.random()*800, y: Math.random()*480 });
@@ -18,13 +18,21 @@ window.onload = function() {
         f.flock_addBoid(b);
     }
     
-    /*e = Crafty.e("2D, PIXI, PolyK").attr({x: 100, y: 100, w: 100, h: 50, rotation: 30});
+    e = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
     e.pixi_setGraphics();
     e.pixi_setInteractive( true, true );
     e.pixi_setHitArea();
     e.polyk_setPolygon();
     //console.log(e.polyk_polygon);
-    //console.log(e.polyk_transformedPolygon());*/
+    //console.log(e.polyk_transformedPolygon());
+    
+    d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
+    d.pixi_setGraphics();
+    d.polyk_setPolygon();
+    
+    c = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 100, h: 100, rotation: 45});
+    c.pixi_setGraphics();
+    c.polyk_setPolygon();
     
     /*graphics = new PIXI.Graphics();
     Crafty.pixi.container.addChild(graphics);
@@ -39,6 +47,18 @@ window.onload = function() {
 	
 };
     
+Math.toPolar = function(cart) {
+    var polar = { r: 0, d: 0 };
+    polar.r = Math.atan2( cart.y, cart.x );
+    polar.d = Math.vecMag(cart);
+    return polar;
+}
+Math.toCart = function(polar) {
+    var cart = { x: 0, y: 0 };
+    cart.x = polar.d*Math.cos(polar.r);
+    cart.y = polar.d*Math.sin(polar.r);
+    return cart;
+}
 Math.toRad = function(deg) {
     return deg*(Math.PI/180);
 }
