@@ -57,8 +57,8 @@ Crafty.c('PolyK', {
 		return PolyK.ContainsPoint( this.polyk_transformedPolygon(), x, y );	
 	},
 	
-	polyk_rayCast: function( x, y, dx, dy ) {
-		return PolyK.RayCast( this.polyk_transformedPolygon(), x, y, dx, dy );		
+	polyk_raycast: function( x, y, dx, dy ) {
+		return PolyK.Raycast( this.polyk_transformedPolygon(), x, y, dx, dy );		
 	},
 	
 	polyk_closestEdge: function( x, y ) {
