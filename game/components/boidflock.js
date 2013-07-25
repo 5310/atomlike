@@ -25,7 +25,6 @@ Crafty.c('Flock', {
 	
 	flock_goal_weight: undefined,
 	flock_separation_weight: undefined,
-	flock_cohesion_weight: undefined,
 	flock_orbit_weight: undefined,
 	flock_obstacle_weight: undefined,
 	
@@ -44,7 +43,6 @@ Crafty.c('Flock', {
 		
 		this.flock_goal_weight = 0.1;
 		this.flock_separation_weight = 1;
-		this.flock_cohesion_weight = 0;
 		this.flock_orbit_weight = 0;
 		this.flock_obstacle_weight = 5;
 		
@@ -59,14 +57,6 @@ Crafty.c('Flock', {
 	},
 	
 	flock_updateBoids: function() {
-		
-		var center = { x: 0, y: 0 };
-		
-		var avgVelocity = { x: 0, y: 0 };
-		for ( var i in this.flock_boids ) {
-			center = Math.vecAdd( center, { x: this.flock_boids[i].x, y: this.flock_boids[i].y } );
-		}
-		center = Math.vecMul( center, 1/this.flock_boids.length );
 		
 		for ( var i in this.flock_boids ) {
 			
@@ -95,11 +85,6 @@ Crafty.c('Flock', {
 					}
 				}
 				separation = Math.vecMul( separation, this.flock_separation_weight );
-			}
-			
-			var cohesion = { x: 0, y: 0 };
-			if ( this.flock_cohesion_weight ) {
-				cohesion = Math.vecMul( Math.vecSub( center, position ), this.flock_cohesion_weight );
 			}
 			
 			var orbit = { x: 0, y: 0 };
@@ -142,7 +127,6 @@ Crafty.c('Flock', {
 			var newVelocity = { x: 0, y: 0 };
 			newVelocity = Math.vecAdd( newVelocity, goal );
 			newVelocity = Math.vecAdd( newVelocity, separation );
-			newVelocity = Math.vecAdd( newVelocity, cohesion );
 			newVelocity = Math.vecAdd( newVelocity, orbit );
 			newVelocity = Math.vecAdd( newVelocity, obstacle );
 			
