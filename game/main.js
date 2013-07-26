@@ -8,26 +8,25 @@ window.onload = function() {
     
     // Tests.
     
-    f = Crafty.e("Flock");
+    b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
+    b.pixi_setGraphics();
+    
+    f = Crafty.e("Flock, Wave");
     for ( var c = 50; c > 0; c-- ) {
         var b = Crafty.e("2D, PIXI, Boid, Particle");
         b.attr({ x: Math.random()*800, y: Math.random()*480 });
-        f.flock_addBoid(b);
-        /*var eg = new PIXI.Graphics();
-        eg.lineStyle(2, 0xc8c8c8);
-        eg.drawCircle( 0, 0, 5 );
-        b.pixi_setGraphics(eg);*/
+        f.wave_addParticle(b);
     }
-    
-    e = Crafty.e("2D, PIXI, PolyK").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
-    e.pixi_setGraphics();
-    e.pixi_setInteractive( true, true );
-    e.pixi_setHitArea();
-    e.polyk_setPolygon();
     
     d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
     
     c = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 100, h: 100, rotation: 45});
+    
+    /*e = Crafty.e("2D, PIXI, PolyK").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
+    e.pixi_setGraphics();
+    e.pixi_setInteractive( true, true );
+    e.pixi_setHitArea();
+    e.polyk_setPolygon();*/
     
     /*graphics = new PIXI.Graphics();
     Crafty.pixi.container.addChild(graphics);

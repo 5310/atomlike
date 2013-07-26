@@ -53,7 +53,21 @@ Crafty.c('Flock', {
 	},
 	
 	flock_addBoid: function(boid) {
-		this.flock_boids.push(boid);
+		if ( this.flock_boids.indexOf(boid) < 0 ) {
+			this.flock_boids.push(boid);
+			return true;
+		} else {
+			return false;
+		}
+	},
+	
+	flock_removeBoid: function(boid) {
+		if ( this.flock_boids.indexOf(boid) > 0 ) {
+			this.flock_boids.splice(this.flock_boids.indexOf(boid), 1);	
+			return true;	
+		} else {
+			return false;
+		}
 	},
 	
 	flock_updateBoids: function() {
