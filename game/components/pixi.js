@@ -3,6 +3,7 @@ Crafty.c('PIXI', {
 	pixi_object: undefined,
 	
 	pixi_graphics: undefined,
+	pixi_color: undefined,
 	
 	pixi_pressed: undefined,
 	pixi_upTimer: undefined,
@@ -14,6 +15,8 @@ Crafty.c('PIXI', {
 		
 		this.pixi_object = new PIXI.DisplayObjectContainer();
 		this.pixi_setContainer();
+		
+		this.pixi_color = 0x000000;
 		
 		this.bind( 'Move', this.pixi_move );
 		this.bind( 'Rotate', this.pixi_rotate );
@@ -74,7 +77,7 @@ Crafty.c('PIXI', {
 		if ( !graphics ) {
 			if ( this.pixi_object.children.length ) this.pixi_object.removeChild(this.pixi_graphics);
 			this.pixi_graphics = new PIXI.Graphics();
-			this.pixi_graphics.beginFill(0x000000);
+			this.pixi_graphics.beginFill(this.pixi_color);
 			this.pixi_graphics.drawRect( -this.w/2, -this.h/2, this.w, this.h );		
 			this.pixi_graphics.endFill();
 			this.pixi_object.addChild(this.pixi_graphics);
