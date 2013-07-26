@@ -21,9 +21,9 @@ Crafty.c('Nucleon', {
 		
 		this.bind( 'PixiDrag', function(data) {
 			
-			this.x = data.global.x;
-			this.y = data.global.y;
-			//BUG: Ok, global is smoother, but does not work with any transformation on parent. Even if I assume only root container is transformed, have to calculate for position scale and rotations. If this is what the PIXI provided utility funciton does and is jittery because of, I think I can optimize but setting the container itself to getGlocal()!
+			var localPosition = data.getLocalPosition(this.pixi_object.parent);
+			this.x = localPosition.x;
+			this.y = localPosition.y;
 			
 			//TODO: Get frame from map dimensions.
 			var left = 50; if ( this.x < left ) this.x = left;
