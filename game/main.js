@@ -15,10 +15,11 @@ window.onload = function() {
     // Tests.
     
     f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});
-    for ( var c = 50; c > 0; c-- ) {
+    f.nucleon_fillWave();
+    /*for ( var c = 50; c > 0; c-- ) {
         var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
         f.wave_addParticle(b);
-    }
+    }*/
     
     d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
     

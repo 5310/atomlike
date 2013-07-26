@@ -53,4 +53,11 @@ Crafty.c('Nucleon', {
 		
 	},
 	
+	nucleon_fillWave: function() {
+		for ( var i = this.flock_boids.length; i < this.wave_capacity; i++ ) {
+			var particle = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: this.x+Math.random(), y: this.y+Math.random() }); //NOTE: Random needed, othewise won't spawn, for some reason.
+			this.wave_addParticle(particle);
+		}
+	},
+	
 });
