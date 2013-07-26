@@ -2,6 +2,8 @@ Crafty.c('Particle', {
 	
 	particle_wave: undefined,
 	
+	particle_health: undefined,
+	
 	init: function() {
 		
 		this.requires('2D, PIXI, Boid');
@@ -9,7 +11,11 @@ Crafty.c('Particle', {
 		
 		this.particle_wave = null,
 		
+		this.particle_health = 10,
+		
 		this.particle_setGraphics();
+		
+		this.bind( 'Remove', this.particle_destroy );
 		
 	},
 	
@@ -38,6 +44,18 @@ Crafty.c('Particle', {
 		
 		this.pixi_setGraphics(graphics);
 		
+	},
+	
+	particle_damage: function(damage) {
+		this.particle_health -= damage;
+		if ( this.particle_health <= 0 ) this.destroy();
+	},
+	
+	particle_destroy: function() {
+		if ( this.particle_wave ) {
+			this.particle_wave.wave_removeParticle(this);
+		}
+		//TODO: Effects.
 	},
 	
 });
@@ -96,7 +114,6 @@ Crafty.c('Wave', {
 	wave_calculateHealth: function() {
 		this.wave_health = this.wave_capacity ? this.flock_boids.length / this.wave_capacity : 0;
 		this.trigger('WaveHealthChanged');
-		console.log(this.wave_health);
 	},
 	
 	wave_setGoal: function( x, y ) {
@@ -108,6 +125,6 @@ Crafty.c('Wave', {
 		for ( var i in this.flock_boids ) {
 			this.flock_boids[i].particle_setGraphics();
 		}
-	}
+	},
 	
 });

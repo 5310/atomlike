@@ -26,6 +26,9 @@ window.onload = function() {
         var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
         f.wave_addParticle(b);
     }*/
+    /*for ( var c = 50; c > 0; c-- ) {
+        f.flock_boids[i].particle_die();
+    }*/
     
     d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
     

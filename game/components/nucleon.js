@@ -57,7 +57,6 @@ Crafty.c('Nucleon', {
 		graphics.drawCircle( 0, 0, this.nucleon_style.radius );
 		graphics.beginFill(0xffffff);
 		graphics.drawCircle( 0, 0, this.nucleon_style.radius*(1-this.wave_health) );
-		console.log(this.nucleon_style.radius*(1-this.wave_health));
 		graphics.endFill();		
 		
 		this.pixi_setGraphics(graphics);

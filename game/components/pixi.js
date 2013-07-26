@@ -20,6 +20,7 @@ Crafty.c('PIXI', {
 		
 		this.bind( 'Move', this.pixi_move );
 		this.bind( 'Rotate', this.pixi_rotate );
+		this.bind( 'Remove', this.pixi_destroy );
 		
 		this.pixi_pressed = false;
 		this.pixi_upTimer = 0;
@@ -62,6 +63,10 @@ Crafty.c('PIXI', {
 		this.bind('PixiClick', function(){console.log('PixiClick');});
 		this.bind('PixiDoubleClick', function(){console.log('PixiDoubleClick');});*/
 		
+	},
+	
+	pixi_destroy: function() {
+		this.pixi_object.parent.removeChild(this.pixi_object);
 	},
 	
 	pixi_setContainer: function(container) {
