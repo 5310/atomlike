@@ -10,11 +10,13 @@ window.onload = function() {
     
     f = Crafty.e("Flock");
     for ( var c = 50; c > 0; c-- ) {
-        var b = Crafty.e("2D, PIXI, Boid");
-        b.attr({ w: 4, h: 4 });
+        var b = Crafty.e("2D, PIXI, Boid, Particle");
         b.attr({ x: Math.random()*800, y: Math.random()*480 });
-        b.pixi_setGraphics();
         f.flock_addBoid(b);
+        /*var eg = new PIXI.Graphics();
+        eg.lineStyle(2, 0xc8c8c8);
+        eg.drawCircle( 0, 0, 5 );
+        b.pixi_setGraphics(eg);*/
     }
     
     e = Crafty.e("2D, PIXI, PolyK").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
