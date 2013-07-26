@@ -38,7 +38,7 @@ Crafty.c('PIXI', {
 			self.pixi_pressed = true;
 			self.pixi_downTimer = 0;
 		};
-		this.pixi_object.mouseup = this.pixi_object.touchend = function(data)  {
+		this.pixi_object.mouseup = this.pixi_object.mouseupoutside = this.pixi_object.touchend = function(data)  {
 			self.trigger('PixiUp', data);
 			self.pixi_pressed = false;
 			if ( self.pixi_downTimer > 0 ) {
@@ -48,7 +48,6 @@ Crafty.c('PIXI', {
 					self.trigger('PixiClick', data);
 				}
 			}
-			console.log(self.pixi_upTimer);
 			self.pixi_upTimer = 0;
 		};
 		this.pixi_object.mousemove = this.pixi_object.touchmove = function(data)  {
