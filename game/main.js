@@ -15,7 +15,7 @@ window.onload = function() {
     // Tests.
     
     f2 = Crafty.e("2D, PIXI, Nucleon").attr({x: 600, y: 300});
-    f2.wave_capacity = 10;
+    f2.wave_setCapacity(10);
     f2.nucleon_fillWave();
     
     f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});

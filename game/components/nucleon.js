@@ -6,8 +6,6 @@ Crafty.c('Nucleon', {
 		lineEeight: undefined,
 	},
 	
-	nucleon_health: undefined,
-	
 	init: function() {
 		
 		this.requires('2D, PIXI, Wave');
@@ -16,7 +14,7 @@ Crafty.c('Nucleon', {
 		this.pixi_setHitArea();
 		if ( Crafty.pixi.nucleons ) this.pixi_setContainer(Crafty.pixi.nucleons);
 		
-		this.nucleon_health = 1;
+		this.wave_health = 1;
 		
 		this.nucleon_style.color = 0x333333;
 		this.nucleon_style.radius = 10;
@@ -43,6 +41,10 @@ Crafty.c('Nucleon', {
 			
 		} );
 		
+		this.bind( 'WaveHealthChanged', function() { 
+			this.nucleon_setGraphics();
+		} );
+		
 	},
 	
 	nucleon_setGraphics: function() {	
@@ -54,7 +56,8 @@ Crafty.c('Nucleon', {
 		graphics.beginFill(this.nucleon_style.color);
 		graphics.drawCircle( 0, 0, this.nucleon_style.radius );
 		graphics.beginFill(0xffffff);
-		graphics.drawCircle( 0, 0, (this.nucleon_style.radius*(1-this.nucleon_health))-1 );
+		graphics.drawCircle( 0, 0, this.nucleon_style.radius*(1-this.wave_health) );
+		console.log(this.nucleon_style.radius*(1-this.wave_health));
 		graphics.endFill();		
 		
 		this.pixi_setGraphics(graphics);

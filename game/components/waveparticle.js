@@ -45,6 +45,7 @@ Crafty.c('Particle', {
 Crafty.c('Wave', {
 
 	wave_capacity: undefined,
+	wave_health: undefined,
 	
 	wave_style: {
 		fillColor: undefined,
@@ -61,6 +62,7 @@ Crafty.c('Wave', {
 		this.requires('Flock');
 		
 		this.wave_capacity = 50;
+		this.wave_health = 0;
 		
 		this.wave_style = {
 			fillColor: 0x333333,
@@ -77,12 +79,24 @@ Crafty.c('Wave', {
 			if ( particle.particle_wave ) particle.particle_wave.removeParticle(particle);
 			particle.particle_wave = this;
 			particle.particle_setGraphics();
+			this.wave_calculateHealth();
 		}
 	},
 	wave_removeParticle: function(particle) {
 		this.flock_removeBoid(particle);
 		particle.particle_wave = null;
 		particle.particle_setGraphics();
+		this.wave_calculateHealth();
+	},
+	
+	wave_setCapacity: function(capacity) {
+		if (capacity) this.wave_capacity = capacity;
+		this.wave_calculateHealth();
+	},
+	wave_calculateHealth: function() {
+		this.wave_health = this.wave_capacity ? this.flock_boids.length / this.wave_capacity : 0;
+		this.trigger('WaveHealthChanged');
+		console.log(this.wave_health);
 	},
 	
 	wave_setGoal: function( x, y ) {
