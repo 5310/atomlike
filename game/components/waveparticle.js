@@ -61,9 +61,14 @@ Crafty.c('Particle', {
 });
 
 Crafty.c('Wave', {
-
-	wave_capacity: undefined,
+	
 	wave_health: undefined,
+	
+	wave_property: {
+		speed: undefined,
+		flavor: undefined,
+		capacity: undefined,
+	},
 	
 	wave_style: {
 		fillColor: undefined,
@@ -79,8 +84,13 @@ Crafty.c('Wave', {
 		
 		this.requires('Flock');
 		
-		this.wave_capacity = 50;
 		this.wave_health = 0;
+		
+		this.wave_property = {
+			speed: PROPERTY.SPEED.MIN,
+			flavor: PROPERTY.SPEED.DIFFUSE,
+			capacity: PROPERTY.CAPACITY.MIN,
+		};
 		
 		this.wave_style = {
 			fillColor: 0x333333,
@@ -91,8 +101,12 @@ Crafty.c('Wave', {
 		
 	},
 	
+	wave_setProperty: function() {
+		this.flock_speed = this.wave_property.speed;
+	},
+	
 	wave_addParticle: function(particle) {
-		if ( this.flock_boids.length < this.wave_capacity ) {
+		if ( this.flock_boids.length < this.wave_property.capacity ) {
 			this.flock_addBoid(particle);
 			if ( particle.particle_wave ) particle.particle_wave.removeParticle(particle);
 			particle.particle_wave = this;
@@ -108,11 +122,11 @@ Crafty.c('Wave', {
 	},
 	
 	wave_setCapacity: function(capacity) {
-		if (capacity) this.wave_capacity = capacity;
+		if (capacity) this.wave_property.capacity = capacity;
 		this.wave_calculateHealth();
 	},
 	wave_calculateHealth: function() {
-		this.wave_health = this.wave_capacity ? this.flock_boids.length / this.wave_capacity : 0;
+		this.wave_health = this.wave_property.capacity ? this.flock_boids.length / this.wave_property.capacity : 0;
 		this.trigger('WaveHealthChanged');
 	},
 	

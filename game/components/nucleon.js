@@ -1,9 +1,35 @@
+PROPERTY = {
+	SPEED: {
+		MIN: 0.1,
+		MAX: 5,
+	},
+	FLAVOR: {
+		CONCISE: 1,
+		DIFFUSE: 2,
+	},
+	CAPACITY: {
+		MIN: 10,
+		MAX: 50,
+	},
+	ENTANGLEMENT: {
+		MIN: 1,
+		MAX: 10,
+	},
+};
+
 Crafty.c('Nucleon', {
+	
+	nucleon_property: {
+		speed: undefined,
+		flavor: undefined,
+		capacity: undefined,
+		entanglement: undefined,
+	},
 	
 	nucleon_style: {
 		color: undefined,
 		radius: undefined,
-		lineEeight: undefined,
+		lineWeight: undefined,
 	},
 	
 	init: function() {
@@ -16,9 +42,18 @@ Crafty.c('Nucleon', {
 		
 		this.wave_health = 1;
 		
-		this.nucleon_style.color = 0x333333;
-		this.nucleon_style.radius = 10;
-		this.nucleon_style.lineWeight = 2;
+		this.nucleon_property = {
+			speed: 2,
+			flavor: PROPERTY.SPEED.DIFFUSE,
+			capacity: PROPERTY.CAPACITY.MIN,
+			entanglement: PROPERTY.ENTANGLEMENT.MIN,
+		};
+		
+		this.nucleon_style = {
+			color: 0x333333,
+			radius: 10,
+			lineWeight: 2,
+		};
 		this.nucleon_setGraphics();
 		
 		this.bind( 'Move', function(data) {
@@ -47,6 +82,15 @@ Crafty.c('Nucleon', {
 		
 	},
 	
+	nucleon_setProperty: function() {
+		this.wave_property = {
+			speed: this.nucleon_property.speed,
+			flavor: this.nucleon_property.flavor,
+			capacity: this.nucleon_property.capacity,
+		};
+		this.wave_setProperty();
+	},
+	
 	nucleon_setGraphics: function() {	
 		
 		var graphics = new PIXI.Graphics();
@@ -68,7 +112,7 @@ Crafty.c('Nucleon', {
 	},
 	
 	nucleon_fillWave: function() {
-		for ( var i = this.flock_boids.length; i < this.wave_capacity; i++ ) {
+		for ( var i = this.flock_boids.length; i < this.wave_property.capacity; i++ ) {
 			var particle = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: this.x+Math.random(), y: this.y+Math.random() }); //NOTE: Random needed, othewise won't spawn, for some reason.
 			this.wave_addParticle(particle);
 		}
