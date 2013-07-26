@@ -1,6 +1,12 @@
 Crafty.c('Nucleon', {
 	
-	nucleon_color: undefined,
+	nucleon_style: {
+		color: undefined,
+		radius: undefined,
+		lineEeight: undefined,
+	},
+	
+	nucleon_health: undefined,
 	
 	init: function() {
 		
@@ -10,7 +16,11 @@ Crafty.c('Nucleon', {
 		this.pixi_setHitArea();
 		if ( Crafty.pixi.nucleons ) this.pixi_setContainer(Crafty.pixi.nucleons);
 		
-		this.nucleon_color = 0x6baff5;
+		this.nucleon_health = 1;
+		
+		this.nucleon_style.color = 0x6baff5;
+		this.nucleon_style.radius = 10;
+		this.nucleon_style.lineWeight = 2;
 		this.nucleon_setGraphics();
 		
 		this.bind( 'Move', function(data) {
@@ -37,19 +47,20 @@ Crafty.c('Nucleon', {
 	
 	nucleon_setGraphics: function() {	
 		
-		var graphics = new PIXI.Graphics();		
+		var graphics = new PIXI.Graphics();
 		
-		var	lineColor = this.nucleon_color;
-		var	lineAlpha = 1;		
-		var	lineWeight = 4;	
-		var	radius = 10;
-		
-		graphics.lineStyle( lineWeight*2, 0xffffff, 1 );
-		graphics.drawCircle( 0, 0, radius );	
-		graphics.lineStyle( lineWeight, lineColor, lineAlpha );
-		graphics.drawCircle( 0, 0, radius );	
+		graphics.beginFill(0xffffff);
+		graphics.drawCircle( 0, 0, this.nucleon_style.radius+this.nucleon_style.lineWeight );	
+		graphics.beginFill(this.nucleon_style.color);
+		graphics.drawCircle( 0, 0, this.nucleon_style.radius );
+		graphics.beginFill(0xffffff);
+		graphics.drawCircle( 0, 0, (this.nucleon_style.radius*(1-this.nucleon_health))-1 );		
 		
 		this.pixi_setGraphics(graphics);
+		
+		this.wave_style.lineColor = this.nucleon_style.color;
+		this.wave_style.fillColor = this.nucleon_style.color;
+		this.wave_updateStyle();
 		
 	},
 	

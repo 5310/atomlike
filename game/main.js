@@ -14,6 +14,12 @@ window.onload = function() {
 
     // Tests.
     
+    f2 = Crafty.e("2D, PIXI, Nucleon").attr({x: 600, y: 300});
+    f2.nucleon_style.color = 0x97e258;
+    f2.wave_capacity = 10;
+    f2.nucleon_fillWave();
+    f2.nucleon_setGraphics();
+    
     f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});
     f.nucleon_fillWave();
     /*for ( var c = 50; c > 0; c-- ) {
