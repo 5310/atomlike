@@ -1,6 +1,6 @@
 PROPERTY = {
 	SPEED: {
-		MIN: 0.1,
+		MIN: 1,
 		MAX: 5,
 	},
 	FLAVOR: {
@@ -9,11 +9,19 @@ PROPERTY = {
 	},
 	CAPACITY: {
 		MIN: 10,
-		MAX: 50,
+		MAX: 25,
 	},
 	ENTANGLEMENT: {
 		MIN: 1,
 		MAX: 10,
+	},
+	DAMAGE: {
+		MIN: 1,
+		MAX: 10,
+	},
+	RANGE: {
+		MIN: 100,
+		MAX: 500,
 	},
 };
 
@@ -43,11 +51,14 @@ Crafty.c('Nucleon', {
 		this.wave_health = 1;
 		
 		this.nucleon_property = {
-			speed: 2,
-			flavor: PROPERTY.SPEED.DIFFUSE,
+			speed: PROPERTY.SPEED.MIN,
+			flavor: PROPERTY.FLAVOR.CONCISE,
 			capacity: PROPERTY.CAPACITY.MIN,
 			entanglement: PROPERTY.ENTANGLEMENT.MIN,
+			damage: PROPERTY.DAMAGE.MIN,
+			range: PROPERTY.RANGE.MIN,
 		};
+		this.nucleon_setProperty();
 		
 		this.nucleon_style = {
 			color: 0x333333,
@@ -80,6 +91,8 @@ Crafty.c('Nucleon', {
 			this.nucleon_setGraphics();
 		} );
 		
+		this.bind( 'WaveDead', this.destroy );
+		
 	},
 	
 	nucleon_setProperty: function() {
@@ -87,6 +100,8 @@ Crafty.c('Nucleon', {
 			speed: this.nucleon_property.speed,
 			flavor: this.nucleon_property.flavor,
 			capacity: this.nucleon_property.capacity,
+			damage: this.nucleon_property.damage,
+			range: this.nucleon_property.range,
 		};
 		this.wave_setProperty();
 	},
@@ -117,5 +132,5 @@ Crafty.c('Nucleon', {
 			this.wave_addParticle(particle);
 		}
 	},
-	
+
 });

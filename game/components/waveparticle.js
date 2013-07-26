@@ -4,6 +4,8 @@ Crafty.c('Particle', {
 	
 	particle_health: undefined,
 	
+	particle_charge: undefined,
+	
 	init: function() {
 		
 		this.requires('2D, PIXI, Boid');
@@ -12,6 +14,8 @@ Crafty.c('Particle', {
 		this.particle_wave = null,
 		
 		this.particle_health = 10,
+		
+		this.particle_charge = 0,
 		
 		this.particle_setGraphics();
 		
@@ -77,8 +81,6 @@ Crafty.c('Wave', {
 		lineWeight: undefined,
 		radius: undefined,	
 	},
-	
-	wave_properties: undefined,
 
 	init: function() {
 		
@@ -88,8 +90,10 @@ Crafty.c('Wave', {
 		
 		this.wave_property = {
 			speed: PROPERTY.SPEED.MIN,
-			flavor: PROPERTY.SPEED.DIFFUSE,
+			flavor: PROPERTY.FLAVOR.DIFFUSE,
 			capacity: PROPERTY.CAPACITY.MIN,
+			damage: PROPERTY.DAMAGE.MIN,
+			range: PROPERTY.RANGE.MIN,
 		};
 		
 		this.wave_style = {
@@ -98,6 +102,10 @@ Crafty.c('Wave', {
 			lineAlpha: 0.5, 
 			lineWeight: 1.5,
 		}
+		
+		this.bind( 'WaveDead', this.destroy );
+		
+		this.bind( 'EnterFrame', this.wave_attack );
 		
 	},
 	
@@ -119,6 +127,7 @@ Crafty.c('Wave', {
 		particle.particle_wave = null;
 		particle.particle_setGraphics();
 		this.wave_calculateHealth();
+		if ( this.wave_health <= 0 ) this.trigger('WaveDead');
 	},
 	
 	wave_setCapacity: function(capacity) {
@@ -140,5 +149,40 @@ Crafty.c('Wave', {
 			this.flock_boids[i].particle_setGraphics();
 		}
 	},
+		
+	wave_attack: function(data) {
+		
+		bg.clear(); //TODO: prototype bg
+		
+		if ( (data.frame+this[0])%10 == 0 ) {
+			
+			if ( this.wave_property.flavor === PROPERTY.FLAVOR.CONCISE ) {
+				var self = this;
+				Crafty("Nucleon").each(function() {
+					try {
+						if ( this !== self ){
+							
+							//console.log(this.flock_boids.length);
+							var i = self.flock_boids[Math.floor(Math.random()*self.flock_boids.length)];
+							var j = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
+							
+							var dist = Math.vecMag(Math.vecSub( [i.x,i.y], [j.x,j.y] ));
+							if ( dist <= self.wave_property.range ) {
+								//TODO: prototype bg
+								bg.lineStyle( 2, 0xff0000 );
+								bg.moveTo( i.x, i.y );
+								bg.lineTo( j.x, j.y );
+								j.particle_damage(self.wave_property.damage);
+							}
+							
+						}
+					} catch (e) {}
+				});
+			} else if ( this.wave_property.flavor === PROPERTY.FLAVOR.DIFFUSE ) {
+				//TODO: melee attack
+			}
+		}
+	}
+	
 	
 });

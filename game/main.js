@@ -14,11 +14,18 @@ window.onload = function() {
 
     // Tests.
     
+    b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
+    b.pixi_setGraphics();
+    b.pixi_setContainer(Crafty.pixi.background);
+    
+    Crafty.e("2D, PIXI, Nucleon").attr({x: 700, y: 100}).nucleon_fillWave();
+    Crafty.e("2D, PIXI, Nucleon").attr({x: 100, y: 350}).nucleon_fillWave();
+    
     f2 = Crafty.e("2D, PIXI, Nucleon").attr({x: 600, y: 300});
     f2.nucleon_fillWave();
     
     f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});
-    f.wave_setCapacity(50);
+    f.wave_setCapacity(25);
     f.nucleon_style.color = 0x6baff5;
     f.nucleon_setGraphics();
     f.nucleon_fillWave();
@@ -51,9 +58,8 @@ window.onload = function() {
 	console.log(data);
     };*/
     
-    b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
-    b.pixi_setGraphics();
-    b.pixi_setContainer(Crafty.pixi.background);
+    bg = new PIXI.Graphics();
+    Crafty.pixi.background.addChild(bg);
 	
 };
     
