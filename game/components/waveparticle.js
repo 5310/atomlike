@@ -5,6 +5,7 @@ Crafty.c('Particle', {
 	init: function() {
 		
 		this.requires('2D, PIXI, Boid');
+		if ( Crafty.pixi.particles ) this.pixi_setContainer(Crafty.pixi.particles);
 		
 		this.particle_wave = null,
 		

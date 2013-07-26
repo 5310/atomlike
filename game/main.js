@@ -14,23 +14,15 @@ window.onload = function() {
 
     // Tests.
     
-    b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
-    b.pixi_setGraphics();
-    b.pixi_setContainer(Crafty.pixi.background);
-    
     f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});
     for ( var c = 50; c > 0; c-- ) {
         var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
-        b.pixi_setContainer(Crafty.pixi.particles);
         f.wave_addParticle(b);
     }
-    f.pixi_setContainer(Crafty.pixi.nucleons);
     
     d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
-    d.pixi_setContainer(Crafty.pixi.barriers);
     
     c = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 100, h: 100, rotation: 45});
-    c.pixi_setContainer(Crafty.pixi.barriers);
     
     /*e = Crafty.e("2D, PIXI, PolyK").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
     e.pixi_setGraphics();
@@ -48,6 +40,10 @@ window.onload = function() {
     graphics.mousedown = graphics.touchstart = function(data) {
 	console.log(data);
     };*/
+    
+    b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
+    b.pixi_setGraphics();
+    b.pixi_setContainer(Crafty.pixi.background);
 	
 };
     
