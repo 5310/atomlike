@@ -62,7 +62,7 @@ Crafty.c('Flock', {
 	},
 	
 	flock_removeBoid: function(boid) {
-		if ( this.flock_boids.indexOf(boid) > 0 ) {
+		if ( this.flock_boids.indexOf(boid) >= 0 ) {
 			this.flock_boids.splice(this.flock_boids.indexOf(boid), 1);	
 			return true;	
 		} else {
