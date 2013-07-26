@@ -21,15 +21,16 @@ Crafty.c('Nucleon', {
 		} );
 		
 		this.bind( 'PixiDrag', function(data) {
-			var localPosition = data.getLocalPosition(this.pixi_object);
-			this.x += localPosition.x;
-			this.y += localPosition.y;
-			//BUG: Movement is very jittery. Something inside PIXI responsible.
+			
+			this.x = data.global.x;
+			this.y = data.global.y;
+			
 			//TODO: Get frame from map dimensions.
 			var left = 50; if ( this.x < left ) this.x = left;
 			var right = 750; if ( this.x > right ) this.x = right;
 			var top = 50; if ( this.y < top ) this.y = top;
 			var bottom = 430; if ( this.y > bottom ) this.y = bottom;
+			
 		} );
 		
 	},
