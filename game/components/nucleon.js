@@ -18,7 +18,7 @@ Crafty.c('Nucleon', {
 		
 		this.nucleon_health = 1;
 		
-		this.nucleon_style.color = 0x6baff5;
+		this.nucleon_style.color = 0x333333;
 		this.nucleon_style.radius = 10;
 		this.nucleon_style.lineWeight = 2;
 		this.nucleon_setGraphics();
@@ -54,7 +54,8 @@ Crafty.c('Nucleon', {
 		graphics.beginFill(this.nucleon_style.color);
 		graphics.drawCircle( 0, 0, this.nucleon_style.radius );
 		graphics.beginFill(0xffffff);
-		graphics.drawCircle( 0, 0, (this.nucleon_style.radius*(1-this.nucleon_health))-1 );		
+		graphics.drawCircle( 0, 0, (this.nucleon_style.radius*(1-this.nucleon_health))-1 );
+		graphics.endFill();		
 		
 		this.pixi_setGraphics(graphics);
 		

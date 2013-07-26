@@ -63,8 +63,8 @@ Crafty.c('Wave', {
 		this.wave_capacity = 50;
 		
 		this.wave_style = {
-			fillColor: 0x6baff5,
-			lineColor: 0x6baff5, 
+			fillColor: 0x333333,
+			lineColor: 0x333333, 
 			lineAlpha: 0.5, 
 			lineWeight: 1.5,
 		}

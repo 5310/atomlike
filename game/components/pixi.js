@@ -16,7 +16,7 @@ Crafty.c('PIXI', {
 		this.pixi_object = new PIXI.DisplayObjectContainer();
 		this.pixi_setContainer();
 		
-		this.pixi_color = 0x000000;
+		this.pixi_color = 0x333333;
 		
 		this.bind( 'Move', this.pixi_move );
 		this.bind( 'Rotate', this.pixi_rotate );
