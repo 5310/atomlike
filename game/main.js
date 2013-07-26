@@ -11,10 +11,9 @@ window.onload = function() {
     b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
     b.pixi_setGraphics();
     
-    f = Crafty.e("Flock, Wave");
+    f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});
     for ( var c = 50; c > 0; c-- ) {
-        var b = Crafty.e("2D, PIXI, Boid, Particle");
-        b.attr({ x: Math.random()*800, y: Math.random()*480 });
+        var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
         f.wave_addParticle(b);
     }
     

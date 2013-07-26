@@ -84,6 +84,11 @@ Crafty.c('Wave', {
 		particle.particle_setGraphics();
 	},
 	
+	wave_setGoal: function( x, y ) {
+		this.flock_goal.x = x;
+		this.flock_goal.y = y;
+	},
+	
 	wave_updateStyle: function() {
 		for ( var i in this.flock_boids ) {
 			this.flock_boids[i].particle_setGraphics();
