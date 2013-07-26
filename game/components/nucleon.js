@@ -60,7 +60,7 @@ Crafty.c('Nucleon', {
 		
 		this.wave_style.lineColor = this.nucleon_style.color;
 		this.wave_style.fillColor = this.nucleon_style.color;
-		this.wave_updateStyle();
+		this.wave_setGraphics();
 		
 	},
 	

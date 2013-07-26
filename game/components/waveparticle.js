@@ -90,7 +90,7 @@ Crafty.c('Wave', {
 		this.flock_goal.y = y;
 	},
 	
-	wave_updateStyle: function() {
+	wave_setGraphics: function() {
 		for ( var i in this.flock_boids ) {
 			this.flock_boids[i].particle_setGraphics();
 		}
