@@ -43,6 +43,8 @@ Crafty.c('Nucleon', {
 		var	lineWeight = 4;	
 		var	radius = 10;
 		
+		graphics.lineStyle( lineWeight*2, 0xffffff, 1 );
+		graphics.drawCircle( 0, 0, radius );	
 		graphics.lineStyle( lineWeight, lineColor, lineAlpha );
 		graphics.drawCircle( 0, 0, radius );	
 		
