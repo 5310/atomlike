@@ -14,7 +14,9 @@ Crafty.extend({world: {
 	pressed: undefined,
 	mouseXOld: undefined,
 	mouseYOld: undefined,
-	
+	margin: undefined,
+	snap: undefined,
+		
 	init: function( width, height, x, y ) {
 		
 		if ( width !== undefined ) this.w = width; else this.w = Crafty.pixi.renderer.width;
@@ -29,6 +31,8 @@ Crafty.extend({world: {
 		self.background.drawRect( 0, 0, self.w, self.h );
 		self.background.endFill();
 		
+		this.snap = 0.7;
+		this.margin = 10;
 		this.background.interactive = true;
 		this.background.hitArea = new PIXI.Rectangle( 0, 0, this.w, this.h );
 		this.pressed = false;
@@ -48,6 +52,10 @@ Crafty.extend({world: {
 				Crafty.pixi.container.position.y += localPosition.y-self.mouseYOld;
 				self.mouseXOld = localPosition.x;
 				self.mouseYOld = localPosition.y;
+				if ( Crafty.pixi.container.position.x >= self.margin ) Crafty.pixi.container.position.x = self.margin;
+				if ( Crafty.pixi.container.position.x <= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin;
+				if ( Crafty.pixi.container.position.y >= self.margin ) Crafty.pixi.container.position.y = self.margin;
+				if ( Crafty.pixi.container.position.y <= Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin;
 			}
 		};
 		
@@ -59,11 +67,26 @@ Crafty.extend({world: {
 		
 		Crafty.bind( 'EnterFrame', function(data) {
 			self.overlay.clear();
+			if ( !self.pressed && Crafty.pixi.container.position.x > 0 && Crafty.pixi.container.position.x <= self.margin ) {
+				Crafty.pixi.container.position.x *= self.snap;
+			}
+			if ( !self.pressed && Crafty.pixi.container.position.x >= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin && Crafty.pixi.container.position.x < Crafty.pixi.renderer.width-self.w*self.getZoom() ) {
+				Crafty.pixi.container.position.x = Crafty.pixi.container.position.x + (Crafty.pixi.renderer.width-self.w*self.getZoom()-Crafty.pixi.container.position.x)*self.snap;
+			}
+			if ( !self.pressed && Crafty.pixi.container.position.y > 0 && Crafty.pixi.container.position.y <= self.margin ) {
+				Crafty.pixi.container.position.y *= self.snap;
+			}
+			if ( !self.pressed && Crafty.pixi.container.position.y >= Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin && Crafty.pixi.container.position.y < Crafty.pixi.renderer.height-self.h*self.getZoom() ) {
+				Crafty.pixi.container.position.y = Crafty.pixi.container.position.y + (Crafty.pixi.renderer.height-self.h*self.getZoom()-Crafty.pixi.container.position.y)*self.snap;
+			}
 			Crafty.trigger('WorldEnterFrame', data);
 		} );
 		
 		window.onscroll = function(data) {
-			
+			if ( Crafty.pixi.container.position.x >= 0 && Crafty.pixi.container.position.x <= 50 ) Crafty.pixi.container.position.x -= 1;
+			//if ( Crafty.pixi.container.position.x <= Crafty.pixi.renderer.width-self.w*self.getZoom()-50 ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width-self.w*self.getZoom()-Crafty.pixi.container.position.x*0.9;
+			//if ( Crafty.pixi.container.position.y >= 50 ) Crafty.pixi.container.position.y = 50;
+			//if ( Crafty.pixi.container.position.y <= Crafty.pixi.renderer.height-self.h*self.getZoom()-50 ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height-self.h*self.getZoom()-50;
 		};
 		
 	},
