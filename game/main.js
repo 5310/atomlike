@@ -5,6 +5,7 @@ window.onload = function() {
     
     // Start Pixi.
     Crafty.pixi.init(800, 480);
+    Crafty.world.init();
     
     // Create layers.
     Crafty.pixi.background = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.background);
@@ -14,9 +15,9 @@ window.onload = function() {
 
     // Tests.
     
-    b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
+    /*b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
     b.pixi_setGraphics();
-    b.pixi_setContainer(Crafty.pixi.background);
+    b.pixi_setContainer(Crafty.pixi.background);*/
     
     Crafty.e("2D, PIXI, Nucleon").attr({x: 700, y: 100}).nucleon_fillWave();
     Crafty.e("2D, PIXI, Nucleon").attr({x: 100, y: 350}).nucleon_fillWave();
@@ -40,7 +41,6 @@ window.onload = function() {
     }*/
     
     d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
-    
     c = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 100, h: 100, rotation: 45});
     
     /*e = Crafty.e("2D, PIXI, PolyK").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
@@ -61,7 +61,7 @@ window.onload = function() {
     };*/
     
     bg = new PIXI.Graphics();
-    Crafty.pixi.background.addChild(bg);
+    Crafty.pixi.container.addChild(bg);
 	
 };
     

@@ -25,7 +25,7 @@ Crafty.c('PIXI', {
 		this.pixi_pressed = false;
 		this.pixi_upTimer = 0;
 		this.pixi_downTimer = 0;
-		this.bind( 'EnterFrame', function(data) {
+		this.bind( 'WorldEnterFrame', function(data) {
 			if ( this.pixi_pressed && this.pixi_downTimer >= 0 ) this.pixi_downTimer++ ;
 			if ( !this.pixi_pressed ) this.pixi_upTimer++ ;
 			if ( this.pixi_downTimer >= 1*60  ) {

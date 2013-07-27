@@ -48,7 +48,7 @@ Crafty.c('Flock', {
 		
 		this.flock_inertia = 5;
 		
-		this.bind( 'EnterFrame', this.flock_updateBoids );
+		this.bind( 'WorldEnterFrame', this.flock_updateBoids );
 		this.bind( 'Remove', this.flock_destroy );
 		
 	},

@@ -6,7 +6,7 @@ Crafty.extend({pixi: {
 	
 	container: undefined,
 	
-	init: function(width, height) {
+	init: function( width, height ) {
 		
 		var self = this;
 		

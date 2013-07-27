@@ -46,7 +46,7 @@ Crafty.c('Nucleon', {
 		this.attr({ w: 16, h: 16});
 		this.pixi_setInteractive( true, true );
 		this.pixi_setHitArea();
-		if ( Crafty.pixi.nucleons ) this.pixi_setContainer(Crafty.pixi.nucleons);
+		if ( Crafty.world.nucleons ) this.pixi_setContainer(Crafty.world.nucleons);
 		
 		this.wave_health = 1;
 		
@@ -79,11 +79,10 @@ Crafty.c('Nucleon', {
 			this.x = localPosition.x;
 			this.y = localPosition.y;
 			
-			//TODO: Get frame from map dimensions.
-			var left = 50; if ( this.x < left ) this.x = left;
-			var right = 750; if ( this.x > right ) this.x = right;
-			var top = 50; if ( this.y < top ) this.y = top;
-			var bottom = 430; if ( this.y > bottom ) this.y = bottom;
+			var left = 0; if ( this.x < left ) this.x = left;
+			var right = Crafty.world.w; if ( this.x > right ) this.x = right;
+			var top = 0; if ( this.y < top ) this.y = top;
+			var bottom = Crafty.world.h; if ( this.y > bottom ) this.y = bottom;
 			
 		} );
 		

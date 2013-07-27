@@ -7,13 +7,11 @@ Crafty.c('Particle', {
 	init: function() {
 		
 		this.requires('2D, PIXI, Boid');
-		if ( Crafty.pixi.particles ) this.pixi_setContainer(Crafty.pixi.particles);
+		if ( Crafty.world.particles ) this.pixi_setContainer(Crafty.world.particles);
 		
 		this.particle_wave = null,
 		
-		this.particle_health = 10,
-		
-		this.particle_charge = 0,
+		this.particle_health = 1,
 		
 		this.particle_setGraphics();
 		
@@ -57,7 +55,9 @@ Crafty.c('Particle', {
 		if ( this.particle_wave ) {
 			this.particle_wave.wave_removeParticle(this);
 		}
-		//TODO: Effects.
+		Crafty.world.overlay.beginFill(0xff0000);
+		Crafty.world.overlay.drawCircle( this.x, this.y, 5 );
+		Crafty.world.overlay.endFill();
 	},
 	
 });
@@ -107,7 +107,7 @@ Crafty.c('Wave', {
 		
 		this.bind( 'WaveDead', this.destroy );
 		
-		this.bind( 'EnterFrame', this.wave_attack );
+		this.bind( 'WorldEnterFrame', this.wave_attack );
 		
 	},
 	
@@ -153,8 +153,6 @@ Crafty.c('Wave', {
 	},
 		
 	wave_attack: function(data) {
-		
-		bg.clear(); //TODO: prototype bg
 
 		if ( this.wave_hostile && (data.frame+this[0])%10 == 0 ) {
 			
@@ -173,17 +171,22 @@ Crafty.c('Wave', {
 								
 								var dist = Math.vecMag(Math.vecSub( [i.x,i.y], [j.x,j.y] ));
 								if ( dist <= self.wave_property.range ) {
-									//TODO: prototype bg
-									bg.lineStyle( 2, 0xff0000 );
+									
 									var m = { x: (i.x+j.x)/2+((Math.random()-0.5)*dist/2), y: (i.y+j.y)/2+((Math.random()-0.5)*dist/2) };
 									var n = { x: (m.x+j.x)/2+((Math.random()-0.5)*dist/4), y: (m.y+j.y)/2+((Math.random()-0.5)*dist/4) };
-									bg.moveTo( i.x, i.y );
-									bg.lineTo( m.x, m.y );
-									bg.moveTo( m.x, m.y );
-									bg.lineTo( n.x, n.y );
-									bg.moveTo( n.x, n.y );
-									bg.lineTo( j.x, j.y );
+									
+									Crafty.world.overlay.lineStyle( 2, 0xff0000 );									
+									Crafty.world.overlay.moveTo( i.x, i.y );
+									Crafty.world.overlay.lineTo( m.x, m.y );
+									Crafty.world.overlay.moveTo( m.x, m.y );
+									Crafty.world.overlay.lineTo( n.x, n.y );
+									Crafty.world.overlay.moveTo( n.x, n.y );
+									Crafty.world.overlay.lineTo( j.x, j.y );
+									Crafty.world.overlay.lineStyle(0);
+									Crafty.world.overlay.moveTo(0,0);
+									
 									j.particle_damage(self.wave_property.damage);
+									
 								}
 								
 							}
