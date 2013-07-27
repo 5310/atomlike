@@ -99,11 +99,14 @@ Crafty.extend({world: {
 			Crafty.trigger('WorldEnterFrame', data);
 		} );
 		
-		Crafty.pixi.renderer.view.addEventListener( 'mousewheel', function(data){
-			var step = data.wheelDelta > 0 ? 1 : -1;
-			self.setZoom(self.getZoom()-0.1*step);
-		}, false);
+		Crafty.pixi.renderer.view.addEventListener( 'mousewheel', self.zoom, false);
+		Crafty.pixi.renderer.view.addEventListener( 'DOMMouseScroll', self.zoom, false); //BUG: Does not work as expected in Firefox.
 		
+	},
+	
+	zoom: function(data) {
+		var step = data.wheelDelta > 0 ? -1 : 1;
+		Crafty.world.setZoom(Crafty.world.getZoom()-0.1*step);
 	},
 	
 	setZoom: function( f, centerX, centerY ) {
