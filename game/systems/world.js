@@ -52,10 +52,17 @@ Crafty.extend({world: {
 				Crafty.pixi.container.position.y += localPosition.y-self.mouseYOld;
 				self.mouseXOld = localPosition.x;
 				self.mouseYOld = localPosition.y;
-				if ( Crafty.pixi.container.position.x >= self.margin ) Crafty.pixi.container.position.x = self.margin;
-				if ( Crafty.pixi.container.position.x <= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin;
-				if ( Crafty.pixi.container.position.y >= self.margin ) Crafty.pixi.container.position.y = self.margin;
-				if ( Crafty.pixi.container.position.y <= Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin;
+				if ( self.w*self.getZoom() >= Crafty.pixi.renderer.width ) {
+					if ( Crafty.pixi.container.position.x >= self.margin ) Crafty.pixi.container.position.x = self.margin;
+					if ( Crafty.pixi.container.position.x <= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin;
+				} else {
+					var offsetCenterX = Crafty.pixi.container.position.x+self.w*self.getZoom()/2-Crafty.pixi.renderer.width/2;
+					if ( offsetCenterX > 0 && offsetCenterX >= self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width/2-self.w*self.getZoom()/2+self.margin;
+					if ( offsetCenterX < 0 && offsetCenterX <= -self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width/2-self.w*self.getZoom()/2-self.margin;
+					var offsetCenterY = Crafty.pixi.container.position.y+self.h*self.getZoom()/2-Crafty.pixi.renderer.height/2;
+					if ( offsetCenterY > 0 && offsetCenterY >= self.margin ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height/2-self.h*self.getZoom()/2+self.margin;
+					if ( offsetCenterY < 0 && offsetCenterY <= -self.margin ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height/2-self.h*self.getZoom()/2-self.margin;
+				}
 			}
 		};
 		
@@ -67,27 +74,35 @@ Crafty.extend({world: {
 		
 		Crafty.bind( 'EnterFrame', function(data) {
 			self.overlay.clear();
-			if ( !self.pressed && Crafty.pixi.container.position.x > 0 && Crafty.pixi.container.position.x <= self.margin ) {
-				Crafty.pixi.container.position.x *= self.snap;
-			}
-			if ( !self.pressed && Crafty.pixi.container.position.x >= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin && Crafty.pixi.container.position.x < Crafty.pixi.renderer.width-self.w*self.getZoom() ) {
-				Crafty.pixi.container.position.x = Crafty.pixi.container.position.x + (Crafty.pixi.renderer.width-self.w*self.getZoom()-Crafty.pixi.container.position.x)*self.snap;
-			}
-			if ( !self.pressed && Crafty.pixi.container.position.y > 0 && Crafty.pixi.container.position.y <= self.margin ) {
-				Crafty.pixi.container.position.y *= self.snap;
-			}
-			if ( !self.pressed && Crafty.pixi.container.position.y >= Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin && Crafty.pixi.container.position.y < Crafty.pixi.renderer.height-self.h*self.getZoom() ) {
-				Crafty.pixi.container.position.y = Crafty.pixi.container.position.y + (Crafty.pixi.renderer.height-self.h*self.getZoom()-Crafty.pixi.container.position.y)*self.snap;
+			if ( !self.pressed ) {
+				if ( self.w*self.getZoom() >= Crafty.pixi.renderer.width ) {
+					if ( Crafty.pixi.container.position.x > 0 && Crafty.pixi.container.position.x <= self.margin ) {
+						Crafty.pixi.container.position.x *= self.snap;
+					}
+					if ( Crafty.pixi.container.position.x >= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin && Crafty.pixi.container.position.x < Crafty.pixi.renderer.width-self.w*self.getZoom() ) {
+						Crafty.pixi.container.position.x = Crafty.pixi.container.position.x + (Crafty.pixi.renderer.width-self.w*self.getZoom()-Crafty.pixi.container.position.x)*self.snap;
+					}
+				} else {
+					Crafty.pixi.container.position.x = Crafty.pixi.container.position.x + (Crafty.pixi.renderer.width/2-(Crafty.pixi.container.position.x+self.w*self.getZoom()/2))*self.snap;
+				}
+				if ( self.h*self.getZoom() >= Crafty.pixi.renderer.height ) {
+					if ( Crafty.pixi.container.position.y > 0 && Crafty.pixi.container.position.y <= self.margin ) {
+						Crafty.pixi.container.position.y *= self.snap;
+					}
+					if ( Crafty.pixi.container.position.y >= Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin && Crafty.pixi.container.position.y < Crafty.pixi.renderer.height-self.h*self.getZoom() ) {
+						Crafty.pixi.container.position.y = Crafty.pixi.container.position.y + (Crafty.pixi.renderer.height-self.h*self.getZoom()-Crafty.pixi.container.position.y)*self.snap;
+					}
+				} else {
+					Crafty.pixi.container.position.y = Crafty.pixi.container.position.y + (Crafty.pixi.renderer.height/2-(Crafty.pixi.container.position.y+self.h*self.getZoom()/2))*self.snap;
+				}
 			}
 			Crafty.trigger('WorldEnterFrame', data);
 		} );
 		
-		window.onscroll = function(data) {
-			if ( Crafty.pixi.container.position.x >= 0 && Crafty.pixi.container.position.x <= 50 ) Crafty.pixi.container.position.x -= 1;
-			//if ( Crafty.pixi.container.position.x <= Crafty.pixi.renderer.width-self.w*self.getZoom()-50 ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width-self.w*self.getZoom()-Crafty.pixi.container.position.x*0.9;
-			//if ( Crafty.pixi.container.position.y >= 50 ) Crafty.pixi.container.position.y = 50;
-			//if ( Crafty.pixi.container.position.y <= Crafty.pixi.renderer.height-self.h*self.getZoom()-50 ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height-self.h*self.getZoom()-50;
-		};
+		Crafty.pixi.renderer.view.addEventListener( 'mousewheel', function(data){
+			var step = data.wheelDelta > 0 ? 1 : -1;
+			self.setZoom(self.getZoom()-0.1*step);
+		}, false);
 		
 	},
 	
