@@ -30,13 +30,15 @@ Crafty.c('Flock', {
 	
 	flock_inertia: undefined,
 	
+	flock_center: undefined,
+	
 	init: function() {
 		
 		this.flock_boids = [];
 		
 		this.flock_speed = 2;
 		
-		this.flock_goal = { x: 400, y: 240 };
+		this.flock_goal = { x: 0, y: 0 };
 		this.flock_separation = 20;
 		this.flock_orbit = 50;
 		this.flock_obstacle = 50;
@@ -47,6 +49,8 @@ Crafty.c('Flock', {
 		this.flock_obstacle_weight = 5;
 		
 		this.flock_inertia = 5;
+		
+		this.flock_center = { x: 0, y: 0 };
 		
 		this.bind( 'WorldEnterFrame', this.flock_updateBoids );
 		this.bind( 'Remove', this.flock_destroy );
@@ -170,7 +174,11 @@ Crafty.c('Flock', {
 			var boid = this.flock_boids[i];
 			boid.x += boid.boid_velocity.x;
 			boid.y += boid.boid_velocity.y;
+			this.flock_center.x = boid.x;
+			this.flock_center.y = boid.y;
 		}
+		this.flock_center.x /= this.flock_boids.length;
+		this.flock_center.y /= this.flock_boids.length;
 		
 	},
 	

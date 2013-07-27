@@ -40,6 +40,8 @@ Crafty.c('Nucleon', {
 		lineWeight: undefined,
 	},
 	
+	nucleon_type: undefined,
+	
 	nucleon_hostileRadius: undefined,
 	
 	init: function() {

@@ -159,6 +159,8 @@ Crafty.c('Wave', {
 
 		if ( this.wave_hostile && (data.frame+this[0])%10 == 0 ) {
 			
+			var flockArea = new Crafty.circle( this.flock_center.x, this.flock_center.y, this.wave_property.range*2 );
+			
 			if ( this.wave_property.flavor === PROPERTY.FLAVOR.CONCISE ) {
 					
 				try {
@@ -171,7 +173,7 @@ Crafty.c('Wave', {
 						else particles = Crafty("Particle");
 						particle = Crafty(particles[Math.floor(Math.random()*particles.length)]);
 						attempts--;
-					} while ( attempts >= 0 && this.wave_hostileArea && !this.wave_hostileArea.containsPoint( particle.x, particle.y ) )
+					} while ( attempts >= 0 && this.wave_hostileArea && !( this.wave_hostileArea.containsPoint( particle.x, particle.y ) || flockArea.containsPoint( particle.x, particle.y ) ) )
 					
 					if ( particle.particle_wave !== this ){
 						if ( particle.particle_wave.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
