@@ -40,6 +40,8 @@ Crafty.c('Nucleon', {
 		lineWeight: undefined,
 	},
 	
+	nucleon_hostileRadius: undefined,
+	
 	init: function() {
 		
 		this.requires('2D, PIXI, Wave');
@@ -47,8 +49,6 @@ Crafty.c('Nucleon', {
 		this.pixi_setInteractive( true, true );
 		this.pixi_setHitArea();
 		if ( Crafty.world.nucleons ) this.pixi_setContainer(Crafty.world.nucleons);
-		
-		this.wave_health = 1;
 		
 		this.nucleon_property = {
 			speed: PROPERTY.SPEED.MIN,
@@ -70,6 +70,7 @@ Crafty.c('Nucleon', {
 		this.bind( 'Move', function(data) {
 			if ( data._x != this.x || data._y != this.y ) {
 				this.wave_setGoal( this.x, this.y );
+				this.wave_setHostileArea( this.x, this.y );
 			}
 		} );
 		

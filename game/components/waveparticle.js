@@ -81,12 +81,14 @@ Crafty.c('Wave', {
 	},
 	
 	wave_hostile: undefined,
+	wave_hostileComponent: undefined,
+	wave_hostileArea: undefined,
 
 	init: function() {
 		
 		this.requires('Flock');
 		
-		this.wave_health = 0;
+		this.wave_health = 1;
 		
 		this.wave_property = {
 			speed: PROPERTY.SPEED.MIN,
@@ -104,6 +106,7 @@ Crafty.c('Wave', {
 		}
 		
 		this.wave_hostile = true;
+		this.wave_hostileComponent = "";
 		
 		this.bind( 'WaveDead', this.destroy );
 		
@@ -157,49 +160,58 @@ Crafty.c('Wave', {
 		if ( this.wave_hostile && (data.frame+this[0])%10 == 0 ) {
 			
 			if ( this.wave_property.flavor === PROPERTY.FLAVOR.CONCISE ) {
-				
-				var self = this;
-				Crafty("Nucleon").each(function() {
 					
-					try {
-						if ( this !== self ){
+				try {
+					
+					var particles;
+					var particle;
+					var attempts = 20;
+					do {
+						if ( this.wave_hostileComponent ) particles = Crafty("Particle"+" "+this.wave_hostileComponent);
+						else particles = Crafty("Particle");
+						particle = Crafty(particles[Math.floor(Math.random()*particles.length)]);
+						attempts--;
+					} while ( attempts >= 0 && this.wave_hostileArea && !this.wave_hostileArea.containsPoint( particle.x, particle.y ) )
+					
+					if ( particle.particle_wave !== this ){
+						if ( particle.particle_wave.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
 							
-							if ( this.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
+							var i = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
+							var j = particle;
+							
+							var dist = Math.vecMag(Math.vecSub( [i.x,i.y], [j.x,j.y] ));
+							if ( dist <= this.wave_property.range ) {
 								
-								var i = self.flock_boids[Math.floor(Math.random()*self.flock_boids.length)];
-								var j = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
+								var m = { x: (i.x+j.x)/2+((Math.random()-0.5)*dist/2), y: (i.y+j.y)/2+((Math.random()-0.5)*dist/2) };
+								var n = { x: (m.x+j.x)/2+((Math.random()-0.5)*dist/4), y: (m.y+j.y)/2+((Math.random()-0.5)*dist/4) };
 								
-								var dist = Math.vecMag(Math.vecSub( [i.x,i.y], [j.x,j.y] ));
-								if ( dist <= self.wave_property.range ) {
-									
-									var m = { x: (i.x+j.x)/2+((Math.random()-0.5)*dist/2), y: (i.y+j.y)/2+((Math.random()-0.5)*dist/2) };
-									var n = { x: (m.x+j.x)/2+((Math.random()-0.5)*dist/4), y: (m.y+j.y)/2+((Math.random()-0.5)*dist/4) };
-									
-									Crafty.world.overlay.lineStyle( 2, 0xff0000 );									
-									Crafty.world.overlay.moveTo( i.x, i.y );
-									Crafty.world.overlay.lineTo( m.x, m.y );
-									Crafty.world.overlay.moveTo( m.x, m.y );
-									Crafty.world.overlay.lineTo( n.x, n.y );
-									Crafty.world.overlay.moveTo( n.x, n.y );
-									Crafty.world.overlay.lineTo( j.x, j.y );
-									Crafty.world.overlay.lineStyle(0);
-									Crafty.world.overlay.moveTo(0,0);
-									
-									j.particle_damage(self.wave_property.damage);
-									
-								}
+								Crafty.world.overlay.lineStyle( 2, 0xff0000 );									
+								Crafty.world.overlay.moveTo( i.x, i.y );
+								Crafty.world.overlay.lineTo( m.x, m.y );
+								Crafty.world.overlay.moveTo( m.x, m.y );
+								Crafty.world.overlay.lineTo( n.x, n.y );
+								Crafty.world.overlay.moveTo( n.x, n.y );
+								Crafty.world.overlay.lineTo( j.x, j.y );
+								Crafty.world.overlay.lineStyle(0);
+								Crafty.world.overlay.moveTo(0,0);
+								
+								j.particle_damage(this.wave_property.damage);
 								
 							}
 							
 						}
-					} catch (e) {}
-					
-				});
+					}
+				} catch (e) {}
+
 			} else if ( this.wave_property.flavor === PROPERTY.FLAVOR.DIFFUSE ) {
 				//TODO: melee attack
 			}
 		}
-	}
+	},
+	
+	wave_setHostileArea: function( x, y ) {
+		if ( this.wave_property.range > 0 ) this.wave_hostileArea = new Crafty.circle( x, y, this.wave_property.range*2 );
+	},	
 	
 	
 });
