@@ -4,8 +4,6 @@ Crafty.c('Particle', {
 	
 	particle_health: undefined,
 	
-	particle_charge: undefined,
-	
 	init: function() {
 		
 		this.requires('2D, PIXI, Boid');
@@ -81,6 +79,8 @@ Crafty.c('Wave', {
 		lineWeight: undefined,
 		radius: undefined,	
 	},
+	
+	wave_hostile: undefined,
 
 	init: function() {
 		
@@ -102,6 +102,8 @@ Crafty.c('Wave', {
 			lineAlpha: 0.5, 
 			lineWeight: 1.5,
 		}
+		
+		this.wave_hostile = true;
 		
 		this.bind( 'WaveDead', this.destroy );
 		
@@ -153,30 +155,42 @@ Crafty.c('Wave', {
 	wave_attack: function(data) {
 		
 		bg.clear(); //TODO: prototype bg
-		
-		if ( (data.frame+this[0])%10 == 0 ) {
+
+		if ( this.wave_hostile && (data.frame+this[0])%10 == 0 ) {
 			
 			if ( this.wave_property.flavor === PROPERTY.FLAVOR.CONCISE ) {
+				
 				var self = this;
 				Crafty("Nucleon").each(function() {
+					
 					try {
 						if ( this !== self ){
 							
-							//console.log(this.flock_boids.length);
-							var i = self.flock_boids[Math.floor(Math.random()*self.flock_boids.length)];
-							var j = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
-							
-							var dist = Math.vecMag(Math.vecSub( [i.x,i.y], [j.x,j.y] ));
-							if ( dist <= self.wave_property.range ) {
-								//TODO: prototype bg
-								bg.lineStyle( 2, 0xff0000 );
-								bg.moveTo( i.x, i.y );
-								bg.lineTo( j.x, j.y );
-								j.particle_damage(self.wave_property.damage);
+							if ( this.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
+								
+								var i = self.flock_boids[Math.floor(Math.random()*self.flock_boids.length)];
+								var j = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
+								
+								var dist = Math.vecMag(Math.vecSub( [i.x,i.y], [j.x,j.y] ));
+								if ( dist <= self.wave_property.range ) {
+									//TODO: prototype bg
+									bg.lineStyle( 2, 0xff0000 );
+									var m = { x: (i.x+j.x)/2+((Math.random()-0.5)*dist/2), y: (i.y+j.y)/2+((Math.random()-0.5)*dist/2) };
+									var n = { x: (m.x+j.x)/2+((Math.random()-0.5)*dist/4), y: (m.y+j.y)/2+((Math.random()-0.5)*dist/4) };
+									bg.moveTo( i.x, i.y );
+									bg.lineTo( m.x, m.y );
+									bg.moveTo( m.x, m.y );
+									bg.lineTo( n.x, n.y );
+									bg.moveTo( n.x, n.y );
+									bg.lineTo( j.x, j.y );
+									j.particle_damage(self.wave_property.damage);
+								}
+								
 							}
 							
 						}
 					} catch (e) {}
+					
 				});
 			} else if ( this.wave_property.flavor === PROPERTY.FLAVOR.DIFFUSE ) {
 				//TODO: melee attack

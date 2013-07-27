@@ -29,6 +29,8 @@ window.onload = function() {
     f.nucleon_style.color = 0x6baff5;
     f.nucleon_setGraphics();
     f.nucleon_fillWave();
+    //f.wave_hostile = false;
+    
     /*for ( var c = 50; c > 0; c-- ) {
         var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
         f.wave_addParticle(b);
