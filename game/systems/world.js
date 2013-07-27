@@ -32,7 +32,7 @@ Crafty.extend({world: {
 		self.background.endFill();
 		
 		this.snap = 0.7;
-		this.margin = 10;
+		this.margin = 50;
 		this.background.interactive = true;
 		this.background.hitArea = new PIXI.Rectangle( 0, 0, this.w, this.h );
 		this.pressed = false;

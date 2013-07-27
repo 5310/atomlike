@@ -5,7 +5,7 @@ window.onload = function() {
     
     // Start Pixi.
     Crafty.pixi.init(800, 480);
-    Crafty.world.init();
+    Crafty.world.init(1600, 800);
     
     // Create layers.
     Crafty.pixi.background = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.background);
