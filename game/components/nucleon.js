@@ -45,9 +45,6 @@ Crafty.c('Nucleon', {
 	init: function() {
 		
 		this.requires('2D, PIXI, Wave');
-		this.attr({ w: 16, h: 16});
-		this.pixi_setInteractive( true, true );
-		this.pixi_setHitArea();
 		if ( Crafty.world.nucleons ) this.pixi_setContainer(Crafty.world.nucleons);
 		
 		this.nucleon_property = {
@@ -66,6 +63,10 @@ Crafty.c('Nucleon', {
 			lineWeight: 2,
 		};
 		this.nucleon_setGraphics();
+		
+		this.pixi_setInteractive( true, true );
+		this.attr({ w: this.nucleon_style.radius*1.5, h: this.nucleon_style.radius*1.5});
+		this.pixi_setHitArea();
 		
 		this.bind( 'Move', function(data) {
 			if ( data._x != this.x || data._y != this.y ) {
@@ -92,6 +93,7 @@ Crafty.c('Nucleon', {
 		} );
 		
 		this.bind( 'WaveDead', this.destroy );
+		this.bind( 'WorldZoomChanged', this.nucleon_setZoom );
 		
 	},
 	
@@ -120,10 +122,18 @@ Crafty.c('Nucleon', {
 		
 		this.pixi_setGraphics(graphics);
 		
+		this.nucleon_setZoom();
+		
 		this.wave_style.lineColor = this.nucleon_style.color;
 		this.wave_style.fillColor = this.nucleon_style.color;
 		this.wave_setGraphics();
 		
+	},
+	nucleon_setZoom: function(data) {
+		var zoom = data ? 1/data.zoom : 1/Crafty.world.getZoom();
+		this.pixi_graphics.scale.x = this.pixi_graphics.scale.y = zoom;
+		this.attr({ w: this.nucleon_style.radius*1.5*zoom, h: this.nucleon_style.radius*1.5*zoom});
+		this.pixi_setHitArea();		
 	},
 	
 	nucleon_fillWave: function() {

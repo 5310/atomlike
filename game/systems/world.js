@@ -106,7 +106,9 @@ Crafty.extend({world: {
 	
 	zoom: function(data) {
 		var step = data.wheelDelta > 0 ? -1 : 1;
-		Crafty.world.setZoom(Crafty.world.getZoom()-0.1*step);
+		var zoom = Crafty.world.getZoom()-0.1*step
+		Crafty.world.setZoom(zoom);
+		Crafty.trigger( "WorldZoomChanged", {zoom:zoom});
 	},
 	
 	setZoom: function( f, centerX, centerY ) {
