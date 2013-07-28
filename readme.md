@@ -3,7 +3,9 @@ Atomlike
 
 A prototype game created for [MiniLD#44 7DRTS]("http://www.ludumdare.com/compo/category/minild/7drts-minild-44/") in slightly less than a week.
 
-I do so hope that the performance logistics are solvable and I get to work on the original features. I'd hate to have to shelve yet _another_ game project that could've been playable :[
+(Try to) play it here: [5310.github.io/atomlike]("http://5310.github.io/atomlike")
+
+The game has major problems! I do so hope that the performance logistics are solvable and I get to work on the original features. I'd hate to have to shelve yet _another_ game project that could've been playable :[
 
 
 What is the point this Game?
