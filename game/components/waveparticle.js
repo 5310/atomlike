@@ -109,8 +109,8 @@ Crafty.c('Wave', {
 		this.wave_style = Crafty.clone({
 			fillColor: 0x333333,
 			lineColor: 0x333333, 
-			lineAlpha: 0.5, 
-			lineWeight: 1.5,
+			lineAlpha: 1, 
+			lineWeight: 1,
 			attackColor: 0xff0000,
 		});
 		
@@ -196,7 +196,7 @@ Crafty.c('Wave', {
 						else particles = Crafty("Particle");
 						particle = Crafty(particles[Math.floor(Math.random()*particles.length)]);
 						attempts--;
-					} while ( attempts >= 0 && this.wave_hostileArea && !( this.wave_hostileArea.containsPoint( particle.x, particle.y ) || flockArea.containsPoint( particle.x, particle.y ) ) )
+					} while ( attempts >= 0 && !( ( this.wave_hostileArea && this.wave_hostileArea.containsPoint( particle.x, particle.y ) ) || flockArea.containsPoint( particle.x, particle.y ) ) )
 					
 					if ( particle.particle_wave !== this ){
 						
