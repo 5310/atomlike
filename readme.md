@@ -1,9 +1,9 @@
 Atomlike
 ========
 
-A prototype game created for [MiniLD#44 7DRTS]("http://www.ludumdare.com/compo/category/minild/7drts-minild-44/") in slightly less than a week.
+A prototype game created for [MiniLD#44 7DRTS](http://www.ludumdare.com/compo/category/minild/7drts-minild-44/) in slightly less than a week.
 
-(Try to) play it here: [5310.github.io/atomlike]("http://5310.github.io/atomlike")
+(Try to) play it here: [5310.github.io/atomlike](http://5310.github.io/atomlike)
 
 The game has major problems! I do so hope that the performance logistics are solvable and I get to work on the original features. I'd hate to have to shelve yet _another_ game project that could've been playable :[
 
@@ -13,7 +13,7 @@ What is the point this Game?
 
 The point of this game was to be a playable single-player tower-defense like survival slice of a multiplayer RTS game about amassing and indirectly controlling flocks of tiny homogeneous units whose varying properties and functionality is defined by the flocks that the player create and configure and the units themselves serve as resource in the game to trigger various more complex effects. All with minimal (lazy) art, and atomic-sounding pseudo-sci-fi fluff.
 
-And while the _point_ remains, the _current version_ of game at the end of the week has been a _very_ cut-down fraction of the design: with but a single type of unit, not customization whatsoever, not even any unit creation, or the interesting abilities that use the tiny units as resource.
+And while the _point_ remains, the _current version_ of game at the end of the week has been a _very_ cut-down fraction of the design: with but a single type of unit, no tactical customization whatsoever, not even any unit creation, or the interesting abilities that make use of the tiny units as resource and medium.
 
 
 How to Play the _Current_ Version of the Game?
