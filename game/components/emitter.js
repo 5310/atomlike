@@ -62,7 +62,7 @@ Crafty.c('Emitter', {
 				var r = Math.random()*Math.PI*2;
 				var d = this.emitter_radiusInner+margin + Math.random()*(radius-this.emitter_radiusInner-margin);
 				
-				var particle = Crafty.e("2D, PIXI, Boid, Particle, Nascent").attr({ x: this.x+Math.cos(r)*d, y: this.x-Math.sin(r)*d });
+				var particle = Crafty.e("2D, PIXI, Boid, Particle, Nascent").attr({ x: this.x+Math.cos(r)*d, y: this.y-Math.sin(r)*d });
 				
 				Crafty.world.overlay.lineStyle( 1, 0xc8c8c8, 0.8 );									
 				Crafty.world.overlay.moveTo( this.x, this.y );

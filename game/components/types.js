@@ -8,7 +8,7 @@ Crafty.c('Anti', {
 		
 		if ( this.has('Nucleon') )	{
 			
-			this.nucleon_property = {
+			this.nucleon_property = Crafty.clone({
 				speed: PROPERTY.SPEED.MIN,
 				flavor: PROPERTY.FLAVOR.CONCISE,
 				capacity: PROPERTY.CAPACITY.MIN,
@@ -16,15 +16,15 @@ Crafty.c('Anti', {
 				damage: 2,
 				range: PROPERTY.RANGE.MIN,
 				health: PROPERTY.HEALTH.MIN,
-			};
+			});
 			this.nucleon_setProperty();
 			
-			this.nucleon_style = {
+			this.nucleon_style = Crafty.clone({
 				color: 0x333333,
-				radius: 10,
-				lineWeight: 2,
+				radius: 0,
+				lineWeight: 0,
 				attackColor: 0xff0000,
-			};
+			});
 			this.nucleon_setGraphics();
 			
 		}	
@@ -103,7 +103,7 @@ Crafty.c('Standard', {
 		
 		if ( this.has('Nucleon') )	{
 			
-			this.nucleon_property = {
+			this.nucleon_property = Crafty.clone({
 				speed: PROPERTY.SPEED.MIN,
 				flavor: PROPERTY.FLAVOR.CONCISE,
 				capacity: PROPERTY.CAPACITY.MAX,
@@ -111,15 +111,15 @@ Crafty.c('Standard', {
 				damage: PROPERTY.DAMAGE.MIN,
 				range: PROPERTY.RANGE.MIN,
 				health: 2,
-			};
+			});
 			this.nucleon_setProperty();
 			
-			this.nucleon_style = {
+			this.nucleon_style = Crafty.clone({
 				color: 0x6baff5,
 				radius: 10,
 				lineWeight: 2,
 				attackColor: 0xff0000,
-			};
+			});
 			this.nucleon_setGraphics();
 			
 		}	

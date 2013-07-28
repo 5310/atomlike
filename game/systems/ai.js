@@ -1,47 +1,58 @@
-Crafty.extend({antiai: {
+Crafty.extend({ai: {
 
 	limit: undefined,
 	age: undefined,
 	pause: undefined,
+	pauseMax: undefined,
+
+	score: undefined,
+	end: undefined,
 	
 	init: function() {
 		
-		Crafty.antiai.limit = 6;
-		Crafty.antiai.age = 0;
-		Crafty.antiai.pause = 1;
+		Crafty.ai.limit = 6;
+		Crafty.ai.age = 0;
+		Crafty.ai.pause = 10;
+		Crafty.ai.pausemax = 30;
+		
+		Crafty.ai.score = 0,
 	
 		Crafty.bind( 'WorldEnterFrame', function(data) {
-			if ( data.frame%(60*Crafty.antiai.pause) == 0 ) {
-				Crafty.antiai.age++;
-				if ( Crafty.antiai.age > 0 && Crafty.antiai.age <= 10 ) {
-					Crafty.antiai.create( Crafty.antiai.age, 1 );
-				} else if ( Crafty.antiai.age > 10 && Crafty.antiai.age <= 30 ) {
-					Crafty.antiai.create( 5+Math.floor((Crafty.antiai.age-10)/2), 1 );
-					Crafty.antiai.create( 5+Math.floor((Crafty.antiai.age-10)/2), 1 );
-				} else if ( Crafty.antiai.age > 30 && Crafty.antiai.age <= 60 )  {
-					for ( var i = Math.floor(Crafty.antiai.age/10); i > 0 ; i-- ) {
-						Crafty.antiai.create( 5 + Crafty.antiai.age - Math.floor(Crafty.antiai.age/10)*10, 1 );						
-					}
-				} else {
-					for ( var i = Math.floor(Crafty.antiai.age/10); i > 0 ; i-- ) {
-						Crafty.antiai.create( 15, 1 );						
+				if ( data.frame%(60*Crafty.ai.pause) == 0 ) {
+					Crafty.ai.age++;
+					Crafty.pause++; Crafty.pause%=(Crafty.ai.pausemax+1);
+					Crafty.ai.score+=Crafty.ai.age*10;
+					if ( Crafty.ai.age > 0 && Crafty.ai.age <= 10 ) {
+						Crafty.ai.create( Crafty.ai.age, 1 );
+					} else if ( Crafty.ai.age > 10 && Crafty.ai.age <= 30 ) {
+						Crafty.ai.create( 5+Math.floor((Crafty.ai.age-10)/2), 1 );
+						Crafty.ai.create( 5+Math.floor((Crafty.ai.age-10)/2), 1 );
+					} else if ( Crafty.ai.age > 30 && Crafty.ai.age <= 60 )  {
+						for ( var i = Math.floor(Crafty.ai.age/10); i > 0 ; i-- ) {
+							Crafty.ai.create( 5 + Crafty.ai.age - Math.floor(Crafty.ai.age/10)*10, 1 );						
+						}
+					} else {
+						for ( var i = Math.floor(Crafty.ai.age/10); i > 0 ; i-- ) {
+							Crafty.ai.create( 15, 1 );						
+						}
 					}
 				}
-			}
-			if ( data.frame%(60*Crafty.antiai.pause*3) == 0 ) {
-				Crafty.antiai.retarget();
-			}
+				if ( data.frame%(60*Crafty.ai.pause*3) == 0 ) {
+					Crafty.ai.retarget();
+				}
 		} );
 		
 		Crafty.bind( 'EmitterDestroyed', function() {
-			Crafty.antiai.retarget();
+			Crafty.ai.retarget();
 		} );
+		
+		Crafty.bind( 'AIEnd', Crafty.ai.end );
 	
 	},
 	
 	create: function( c, s ) {
 		
-		if ( Crafty('Nucleon Anti').length >= Crafty.antiai.limit ) return;
+		if ( Crafty('Nucleon Anti').length >= Crafty.ai.limit ) return;
 		
 		var x = 0;
 		var y = 0;
@@ -67,13 +78,10 @@ Crafty.extend({antiai: {
 		}
 		
 		var nucleon = Crafty.e("2D, PIXI, Nucleon, Anti").attr({x:x,y:y})
-		nucleon.nucleon_property.damage = 2;
+		//nucleon.nucleon_property.damage = 2;
 		nucleon.nucleon_property.speed = s;
 		nucleon.nucleon_property.capacity = c;
 		nucleon.nucleon_setProperty();
-		nucleon.nucleon_style.radius = 0;
-		nucleon.nucleon_style.lineWeight = 0;
-		nucleon.nucleon_setGraphics();
 		nucleon.nucleon_fillWave();
 		
 		var emitters = Crafty('Emitter');
@@ -85,7 +93,9 @@ Crafty.extend({antiai: {
 		} else if ( emitters.length == 1 ) {
 			x = emitters.x;
 			y = emitters.y;
-		}
+		} else {
+				Crafty.trigger('AIEnd');
+			}
 		
 		nucleon.attr({x:x,y:y});
 		
@@ -96,8 +106,8 @@ Crafty.extend({antiai: {
 			
 		var emitters = Crafty('Emitter');
 		
-			var x = 0;
-			var y = 0;
+			var x = Crafty.pixi.renderer.width/2;
+			var y = Crafty.pixi.renderer.height/2;
 		
 			if ( emitters.length > 1 ) {
 				var emitter = Crafty(emitters[Math.floor(Math.random()*emitters.length)]);
@@ -106,11 +116,17 @@ Crafty.extend({antiai: {
 			} else if ( emitters.length == 1 ) {
 				x = emitters.x;
 				y = emitters.y;
+			} else {
+				Crafty.trigger('AIEnd');
 			}
 			
 			this.attr({x:x,y:y}); 
 			
 		});
 	},
+	
+	end: function() {
+		//Crafty.pause();
+	}
 	
 }});

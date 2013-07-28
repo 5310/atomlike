@@ -54,6 +54,7 @@ Crafty.c('Particle', {
 	},
 	
 	particle_destroy: function() {
+		Crafty.ai.score++;
 		if ( this.particle_wave ) Crafty.world.overlay.lineStyle( 2, this.particle_wave.wave_style.attackColor );
 		Crafty.world.overlay.drawCircle( this.x, this.y, 7 );
 		Crafty.world.overlay.lineStyle(0);
@@ -96,22 +97,22 @@ Crafty.c('Wave', {
 		
 		this.wave_health = 1;
 		
-		this.wave_property = {
+		this.wave_property = Crafty.clone({
 			speed: PROPERTY.SPEED.MIN,
 			flavor: PROPERTY.FLAVOR.DIFFUSE,
 			capacity: PROPERTY.CAPACITY.MIN,
 			damage: PROPERTY.DAMAGE.MIN,
 			range: PROPERTY.RANGE.MIN,
 			health: PROPERTY.HEALTH.MIN,
-		};
+		});
 		
-		this.wave_style = {
+		this.wave_style = Crafty.clone({
 			fillColor: 0x333333,
 			lineColor: 0x333333, 
 			lineAlpha: 0.5, 
 			lineWeight: 1.5,
 			attackColor: 0xff0000,
-		}
+		});
 		
 		this.wave_hostile = true;
 		this.wave_hostileComponent = "";

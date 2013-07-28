@@ -57,7 +57,7 @@ Crafty.c('Nucleon', {
 		this.requires('2D, PIXI, Wave');
 		if ( Crafty.world.nucleons ) this.pixi_setContainer(Crafty.world.nucleons);
 		
-		this.nucleon_property = {
+		this.nucleon_property = Crafty.clone({
 			speed: PROPERTY.SPEED.MIN,
 			flavor: PROPERTY.FLAVOR.CONCISE,
 			capacity: PROPERTY.CAPACITY.MIN,
@@ -65,15 +65,15 @@ Crafty.c('Nucleon', {
 			damage: PROPERTY.DAMAGE.MIN,
 			range: PROPERTY.RANGE.MIN,
 			health: PROPERTY.HEALTH.MIN,
-		};
+		});
 		this.nucleon_setProperty();
 		
-		this.nucleon_style = {
+		this.nucleon_style = Crafty.clone({
 			color: 0xc8c8c8,
 			radius: 10,
 			lineWeight: 2,
 			attackColor: 0xff0044,
-		};
+		});
 		this.nucleon_setGraphics();
 		
 		this.pixi_setInteractive( true, true );
