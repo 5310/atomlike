@@ -198,7 +198,8 @@ Crafty.c('Wave', {
 					} while ( attempts >= 0 && this.wave_hostileArea && !( this.wave_hostileArea.containsPoint( particle.x, particle.y ) || flockArea.containsPoint( particle.x, particle.y ) ) )
 					
 					if ( particle.particle_wave !== this ){
-						if ( particle.particle_wave.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
+						
+						if ( !particle.particle_wave || particle.particle_wave.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
 							
 							var i = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
 							var j = particle;

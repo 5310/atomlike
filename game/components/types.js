@@ -1,6 +1,10 @@
 Crafty.c('Anti', {
 	
+	type: undefined,
+	
 	init: function() {
+		
+		this.type = 'Anti';
 		
 		if ( this.has('Nucleon') )	{
 			
@@ -30,11 +34,13 @@ Crafty.c('Anti', {
 			this.wave_hostileComponent = 'Standard';
 			
 			this.bind( 'WaveAddingParticle', function(data) {
+				data.removeComponent(data.type);
 				data.addComponent('Anti');
 			} );
 			
 			this.bind( 'WaveRemovingParticle', function(data) {
 				data.removeComponent('Anti');
+				data.addComponent('Nascent');
 			} );
 			
 			this.bind( 'WorldEnterFrame', function(data) {
@@ -49,7 +55,11 @@ Crafty.c('Anti', {
 
 Crafty.c('Standard', {
 	
+	type: undefined,
+	
 	init: function() {
+		
+		this.type = 'Standard';
 		
 		if ( this.has('Nucleon') )	{
 			
@@ -79,11 +89,13 @@ Crafty.c('Standard', {
 			this.wave_hostileComponent = 'Anti';
 			
 			this.bind( 'WaveAddingParticle', function(data) {
+				data.removeComponent(data.type);
 				data.addComponent('Standard');
 			} );
 			
 			this.bind( 'WaveRemovingParticle', function(data) {
 				data.removeComponent('Standard');
+				data.addComponent('Nascent');
 			} );
 			
 			this.bind( 'WorldEnterFrame', function(data) {
@@ -91,6 +103,18 @@ Crafty.c('Standard', {
 			} );
 			
 		}	
+		
+	},	
+	
+});
+
+Crafty.c('Nascent', {
+	
+	type: undefined,
+	
+	init: function() {
+		
+		this.type = 'Nascent';
 		
 	},	
 	
