@@ -82,6 +82,7 @@ Crafty.c('Emitter', {
 		if ( this.emitter_health <= 0 ) this.destroy();
 	},
 	emitter_destroy: function() {
+		Crafty.trigger('EmitterDestroyed');
 		Crafty.world.overlay.beginFill(0xff0000);
 		Crafty.world.overlay.drawCircle( this.x, this.y, this.emitter_radiusInner*1.5 );
 		Crafty.world.overlay.endFill();

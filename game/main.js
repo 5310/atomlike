@@ -6,6 +6,7 @@ window.onload = function() {
     // Start Pixi.
     Crafty.pixi.init(800, 480);
     Crafty.world.init();
+    Crafty.antiai.init();
     
     // Create layers.
     Crafty.pixi.background = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.background);
@@ -20,12 +21,15 @@ window.onload = function() {
     b.pixi_setContainer(Crafty.pixi.background);*/
     
     m = Crafty.e("2D, PIXI, Emitter").attr({x: 50, y: 50});
+    n = Crafty.e("2D, PIXI, Emitter").attr({x: 750, y: 50});
+    o = Crafty.e("2D, PIXI, Emitter").attr({x: 50, y: 430});
+    p = Crafty.e("2D, PIXI, Emitter").attr({x: 750, y: 430});
     
-    Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 700, y: 100}).nucleon_fillWave();
-    Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 100, y: 350}).nucleon_fillWave();
+    //Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 700, y: 100}).nucleon_fillWave();
+    //Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 100, y: 350}).nucleon_fillWave();
     
-    f2 = Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 600, y: 300});
-    f2.nucleon_fillWave();
+    //f2 = Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 600, y: 300});
+    //f2.nucleon_fillWave();
     
     f = Crafty.e("2D, PIXI, Nucleon, Standard").attr({x: 200, y: 200});
     /*f.wave_setCapacity(25);

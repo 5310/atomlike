@@ -8,7 +8,7 @@ PROPERTY = {
 		DIFFUSE: 2,
 	},
 	CAPACITY: {
-		MIN: 10,
+		MIN: 5,
 		MAX: 25,
 	},
 	ENTANGLEMENT: {
