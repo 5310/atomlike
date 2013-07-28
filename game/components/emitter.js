@@ -83,7 +83,7 @@ Crafty.c('Emitter', {
 	},
 	emitter_destroy: function() {
 		Crafty.world.overlay.beginFill(0xff0000);
-		Crafty.world.overlay.drawCircle( this.x, this.y, 20 );
+		Crafty.world.overlay.drawCircle( this.x, this.y, this.emitter_radiusInner*1.5 );
 		Crafty.world.overlay.endFill();
 	},
 	
