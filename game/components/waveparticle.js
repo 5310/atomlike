@@ -127,12 +127,22 @@ Crafty.c('Wave', {
 	wave_addParticle: function(particle) {
 		this.trigger( 'WaveAddingParticle', particle );
 		if ( this.flock_boids.length < this.wave_property.capacity ) {
+			
 			this.flock_addBoid(particle);
+			
 			if ( particle.particle_wave ) particle.particle_wave.removeParticle(particle);
+			
 			particle.particle_wave = this;
-			particle.particle_health = particle.particle_healthMax = this.wave_property.health;
+			
+			if ( particle.particle_health > this.wave_property.health )
+				particle.particle_health = particle.particle_healthMax;
+			else
+				particle.particle_health = particle.particle_health/particle.particle_healthMax * this.wave_property.health;	
+			particle.particle_healthMax = this.wave_property.health;	
 			particle.particle_setGraphics();
+					
 			this.wave_calculateHealth();
+			
 		}
 	},
 	wave_removeParticle: function(particle) {
