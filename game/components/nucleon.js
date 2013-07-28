@@ -23,6 +23,10 @@ PROPERTY = {
 		MIN: 100,
 		MAX: 500,
 	},
+	HEALTH: {
+		MIN: 1,
+		MAX: 10,
+	},
 };
 
 Crafty.c('Nucleon', {
@@ -32,6 +36,9 @@ Crafty.c('Nucleon', {
 		flavor: undefined,
 		capacity: undefined,
 		entanglement: undefined,
+		range: undefined,
+		damage: undefined,
+		haelth: undefined,
 	},
 	
 	nucleon_style: {
@@ -56,11 +63,12 @@ Crafty.c('Nucleon', {
 			entanglement: PROPERTY.ENTANGLEMENT.MIN,
 			damage: PROPERTY.DAMAGE.MIN,
 			range: PROPERTY.RANGE.MIN,
+			health: PROPERTY.HEALTH.MIN,
 		};
 		this.nucleon_setProperty();
 		
 		this.nucleon_style = {
-			color: 0x333333,
+			color: 0xc8c8c8,
 			radius: 10,
 			lineWeight: 2,
 		};
@@ -106,6 +114,7 @@ Crafty.c('Nucleon', {
 			capacity: this.nucleon_property.capacity,
 			damage: this.nucleon_property.damage,
 			range: this.nucleon_property.range,
+			health: this.nucleon_property.health,
 		};
 		this.wave_setProperty();
 	},

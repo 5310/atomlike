@@ -12,7 +12,7 @@ Crafty.c('Particle', {
 		
 		this.particle_wave = null,
 		
-		this.particle_health = this.particle_healthMax = 2;
+		this.particle_health = this.particle_healthMax = 1;
 		
 		this.particle_setGraphics();
 		
@@ -72,6 +72,9 @@ Crafty.c('Wave', {
 		speed: undefined,
 		flavor: undefined,
 		capacity: undefined,
+		damage: undefined,
+		range: undefined,
+		health: undefined,
 	},
 	
 	wave_style: {
@@ -98,6 +101,7 @@ Crafty.c('Wave', {
 			capacity: PROPERTY.CAPACITY.MIN,
 			damage: PROPERTY.DAMAGE.MIN,
 			range: PROPERTY.RANGE.MIN,
+			health: PROPERTY.HEALTH.MIN,
 		};
 		
 		this.wave_style = {
@@ -121,17 +125,21 @@ Crafty.c('Wave', {
 	},
 	
 	wave_addParticle: function(particle) {
+		this.trigger( 'WaveAddingParticle', particle );
 		if ( this.flock_boids.length < this.wave_property.capacity ) {
 			this.flock_addBoid(particle);
 			if ( particle.particle_wave ) particle.particle_wave.removeParticle(particle);
 			particle.particle_wave = this;
+			particle.particle_health = particle.particle_healthMax = this.wave_property.health;
 			particle.particle_setGraphics();
 			this.wave_calculateHealth();
 		}
 	},
 	wave_removeParticle: function(particle) {
+		this.trigger( 'WaveRemovingParticle', particle );
 		this.flock_removeBoid(particle);
 		particle.particle_wave = null;
+		particle.particle_health = particle.particle_healthMax = 1;
 		particle.particle_setGraphics();
 		this.wave_calculateHealth();
 		if ( this.wave_health <= 0 ) this.trigger('WaveDead');

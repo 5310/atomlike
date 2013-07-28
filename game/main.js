@@ -21,18 +21,18 @@ window.onload = function() {
     
     m = Crafty.e("2D, PIXI, Emitter").attr({x: 50, y: 50});
     
-    Crafty.e("2D, PIXI, Nucleon").attr({x: 700, y: 100}).nucleon_fillWave();
-    Crafty.e("2D, PIXI, Nucleon").attr({x: 100, y: 350}).nucleon_fillWave();
+    Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 700, y: 100}).nucleon_fillWave();
+    Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 100, y: 350}).nucleon_fillWave();
     
-    f2 = Crafty.e("2D, PIXI, Nucleon").attr({x: 600, y: 300});
+    f2 = Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 600, y: 300});
     f2.nucleon_fillWave();
     
-    f = Crafty.e("2D, PIXI, Nucleon").attr({x: 200, y: 200});
-    f.wave_setCapacity(25);
+    f = Crafty.e("2D, PIXI, Nucleon, Standard").attr({x: 200, y: 200});
+    /*f.wave_setCapacity(25);
     f.nucleon_style.color = 0x6baff5;
-    f.nucleon_setGraphics();
+    f.nucleon_setGraphics();*/
+    //f.wave_hostileComponent = "Anti";
     f.nucleon_fillWave();
-    //f.wave_hostile = false;
     
     /*for ( var c = 50; c > 0; c-- ) {
         var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
