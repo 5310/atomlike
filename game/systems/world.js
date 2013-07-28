@@ -55,6 +55,8 @@ Crafty.extend({world: {
 				if ( self.w*self.getZoom() >= Crafty.pixi.renderer.width ) {
 					if ( Crafty.pixi.container.position.x >= self.margin ) Crafty.pixi.container.position.x = self.margin;
 					if ( Crafty.pixi.container.position.x <= Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width-self.w*self.getZoom()-self.margin;
+					if ( Crafty.pixi.container.position.y >= self.margin ) Crafty.pixi.container.position.y = self.margin;
+					if ( Crafty.pixi.container.position.y <= Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin ) Crafty.pixi.container.position.y = Crafty.pixi.renderer.height-self.h*self.getZoom()-self.margin;
 				} else {
 					var offsetCenterX = Crafty.pixi.container.position.x+self.w*self.getZoom()/2-Crafty.pixi.renderer.width/2;
 					if ( offsetCenterX > 0 && offsetCenterX >= self.margin ) Crafty.pixi.container.position.x = Crafty.pixi.renderer.width/2-self.w*self.getZoom()/2+self.margin;
