@@ -33,6 +33,10 @@ I'm so glad you asked. Well, um, "poorly" will be the apt answer, still...
 
 That's it. If I can iron out the performance issues, then I will at least complete the planned features.
 
+### Warning
+
+The game _will_ lag at some point. Please close the tab if it gets to be too much lest it crash your browser or worse...
+
 
 Performance Roadblocks
 ----------------------
