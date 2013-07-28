@@ -200,7 +200,7 @@ Crafty.c('Wave', {
 					
 					if ( particle.particle_wave !== this ){
 						
-						if ( !particle.particle_wave || particle.particle_wave.flock_boids.length >= Math.random()*PROPERTY.CAPACITY.MAX ) {
+						if ( !particle.particle_wave || particle.particle_wave.wave_health >= Math.random() ) {
 							
 							var i = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
 							var j = particle;
