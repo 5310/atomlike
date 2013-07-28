@@ -45,6 +45,7 @@ Crafty.c('Nucleon', {
 		color: undefined,
 		radius: undefined,
 		lineWeight: undefined,
+		attackColor: undefined,
 	},
 	
 	nucleon_type: undefined,
@@ -71,6 +72,7 @@ Crafty.c('Nucleon', {
 			color: 0xc8c8c8,
 			radius: 10,
 			lineWeight: 2,
+			attackColor: 0xff0044,
 		};
 		this.nucleon_setGraphics();
 		
@@ -137,6 +139,7 @@ Crafty.c('Nucleon', {
 		
 		this.wave_style.lineColor = this.nucleon_style.color;
 		this.wave_style.fillColor = this.nucleon_style.color;
+		this.wave_style.attackColor = this.nucleon_style.attackColor;
 		this.wave_setGraphics();
 		
 	},

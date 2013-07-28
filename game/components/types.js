@@ -19,6 +19,7 @@ Crafty.c('Anti', {
 				color: 0x333333,
 				radius: 10,
 				lineWeight: 2,
+				attackColor: 0xff0000,
 			};
 			this.nucleon_setGraphics();
 			
@@ -67,6 +68,7 @@ Crafty.c('Standard', {
 				color: 0x6baff5,
 				radius: 10,
 				lineWeight: 2,
+				attackColor: 0xff0000,
 			};
 			this.nucleon_setGraphics();
 			

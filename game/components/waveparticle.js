@@ -54,12 +54,12 @@ Crafty.c('Particle', {
 	},
 	
 	particle_destroy: function() {
+		if ( this.particle_wave ) Crafty.world.overlay.lineStyle( 2, this.particle_wave.wave_style.attackColor );
+		Crafty.world.overlay.drawCircle( this.x, this.y, 7 );
+		Crafty.world.overlay.lineStyle(0);
 		if ( this.particle_wave ) {
 			this.particle_wave.wave_removeParticle(this);
 		}
-		Crafty.world.overlay.beginFill(0xff0000);
-		Crafty.world.overlay.drawCircle( this.x, this.y, 5 );
-		Crafty.world.overlay.endFill();
 	},
 	
 });
@@ -83,6 +83,7 @@ Crafty.c('Wave', {
 		lineAlpha: undefined, 
 		lineWeight: undefined,
 		radius: undefined,	
+		attackColor: undefined,
 	},
 	
 	wave_hostile: undefined,
@@ -109,6 +110,7 @@ Crafty.c('Wave', {
 			lineColor: 0x333333, 
 			lineAlpha: 0.5, 
 			lineWeight: 1.5,
+			attackColor: 0xff0000,
 		}
 		
 		this.wave_hostile = true;
@@ -207,7 +209,7 @@ Crafty.c('Wave', {
 								var m = { x: (i.x+j.x)/2+((Math.random()-0.5)*dist/2), y: (i.y+j.y)/2+((Math.random()-0.5)*dist/2) };
 								var n = { x: (m.x+j.x)/2+((Math.random()-0.5)*dist/4), y: (m.y+j.y)/2+((Math.random()-0.5)*dist/4) };
 								
-								Crafty.world.overlay.lineStyle( 2, 0xff0000 );									
+								Crafty.world.overlay.lineStyle( 2, this.wave_style.attackColor );									
 								Crafty.world.overlay.moveTo( i.x, i.y );
 								Crafty.world.overlay.lineTo( m.x, m.y );
 								Crafty.world.overlay.moveTo( m.x, m.y );
