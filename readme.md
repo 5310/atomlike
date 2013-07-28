@@ -17,11 +17,11 @@ How to Play the _Current_ Version of the Game?
 
 I'm so glad you asked. Well, um, "poorly" will be the apt answer, still...
 
-!!! Control
+### Control
 - Use the mouse to pan the map, and the mouse-wheel to zoom.
 - Drag the larger colored circles (which will change the cursor to the hand) also called a Nucleon to move them around.
 
-!!! Rules
+### Rules
 - Particles -- which are the smaller circles and the main units of this game -- that belong to a Nucleon will try to follow it around the map.
 - Particles will also attack any enemy Particles in range, and vice-versa.
 - Waves of black colored enemy (called Anti-Particles, of course) particles will try to attack various Emitters on the map.
