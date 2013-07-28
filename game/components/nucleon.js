@@ -12,15 +12,15 @@ PROPERTY = {
 		MAX: 25,
 	},
 	ENTANGLEMENT: {
-		MIN: 1,
-		MAX: 10,
+		MIN: 10,
+		MAX: 1,
 	},
 	DAMAGE: {
 		MIN: 1,
 		MAX: 10,
 	},
 	RANGE: {
-		MIN: 100,
+		MIN: 50,
 		MAX: 500,
 	},
 	HEALTH: {

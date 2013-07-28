@@ -1,75 +1,59 @@
 window.onload = function() {
 	
-    // Start Crafty.
+    // Start Systems.
     Crafty.init(800, 480);
-    
-    // Start Pixi.
     Crafty.pixi.init(800, 480);
-    Crafty.world.init();
+    Crafty.world.init( 1200, 1200); Crafty.world.setZoom(0.5); Crafty.pixi.container.position.y = -60;
     Crafty.ai.init();
     
-    // Create layers.
-    Crafty.pixi.background = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.background);
-    Crafty.pixi.particles = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.particles);
-    Crafty.pixi.barriers = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.barriers);
-    Crafty.pixi.nucleons = new PIXI.DisplayObjectContainer(); Crafty.pixi.container.addChild(Crafty.pixi.nucleons);
+    
+    // Create barriers.
+    Crafty.e('Barrier').attr({x: 225, y: 1075, w: 250, h: 50, rotation: 0});
+    Crafty.e('Barrier').attr({x: 125, y: 975, w: 50, h: 250, rotation: 0});
+    
+    Crafty.e('Barrier').attr({x: 975, y: 1075, w: 250, h: 50, rotation: 0});
+    Crafty.e('Barrier').attr({x: 1075, y: 975, w: 50, h: 250, rotation: 0});
+    
+    Crafty.e('Barrier').attr({x: 225, y: 125, w: 250, h: 50, rotation: 0});
+    Crafty.e('Barrier').attr({x: 125, y: 225, w: 50, h: 250, rotation: 0});
+    
+    Crafty.e('Barrier').attr({x: 975, y: 125, w: 250, h: 50, rotation: 0});
+    Crafty.e('Barrier').attr({x: 1075, y: 225, w: 50, h: 250, rotation: 0});
+    
+    Crafty.e('Barrier').attr({x: 250, y: 600, w: 140, h: 140, rotation: 45});
+    Crafty.e('Barrier').attr({x: 950, y: 600, w: 140, h: 140, rotation: 45});
+    
+    Crafty.e('Barrier').attr({x: 600, y: 600, w: 40, h: 40, rotation: 45});
+    
+    Crafty.e('Barrier').attr({x: 500, y: 700, w: 150, h: 50, rotation: -45});
+    Crafty.e('Barrier').attr({x: 700, y: 700, w: 150, h: 50, rotation: 45});
+    Crafty.e('Barrier').attr({x: 500, y: 500, w: 150, h: 50, rotation: 45});
+    Crafty.e('Barrier').attr({x: 700, y: 500, w: 150, h: 50, rotation: -45});
+    
+    Crafty.e('Barrier').attr({x: 550, y: 975, w: 300, h: 50, rotation: 45});
+    Crafty.e('Barrier').attr({x: 650, y: 225, w: 300, h: 50, rotation: 45});
+    
+    
+    // Create emitters.
+    
+    Crafty.e('Emitter').attr({x: 250, y: 250, emitter_radiusMax: 75}).emitter_setGraphics();
+    Crafty.e('Emitter').attr({x: 250, y: 950, emitter_radiusMax: 75}).emitter_setGraphics();
+    Crafty.e('Emitter').attr({x: 950, y: 250, emitter_radiusMax: 75}).emitter_setGraphics();
+    Crafty.e('Emitter').attr({x: 950, y: 950, emitter_radiusMax: 75}).emitter_setGraphics();
+    
+    Crafty.e('Emitter').attr({x: 600, y: 750, emitter_radiusMax: 50}).emitter_setGraphics();
+    Crafty.e('Emitter').attr({x: 600, y: 450, emitter_radiusMax: 50}).emitter_setGraphics();
+    Crafty.e('Emitter').attr({x: 750, y: 600, emitter_radiusMax: 50}).emitter_setGraphics();
+    Crafty.e('Emitter').attr({x: 450, y: 600, emitter_radiusMax: 50}).emitter_setGraphics();
+    
+    
+    // Create nucleons.
+    
+    Crafty.e('Nucleon, Standard').attr({x: 400, y: 400}).nucleon_fillWave();
+    Crafty.e('Nucleon, Standard').attr({x: 400, y: 800}).nucleon_fillWave();
+    Crafty.e('Nucleon, Standard').attr({x: 800, y: 400}).nucleon_fillWave();
+    Crafty.e('Nucleon, Standard').attr({x: 800, y: 800}).nucleon_fillWave();
 
-    // Tests.
-    
-    /*b = Crafty.e("2D, PIXI").attr({x: 400, y: 240, w: 700, h: 380, rotation: 0, pixi_color: 0xffffff});
-    b.pixi_setGraphics();
-    b.pixi_setContainer(Crafty.pixi.background);*/
-    
-    m = Crafty.e("2D, PIXI, Emitter").attr({x: 50, y: 50});
-    n = Crafty.e("2D, PIXI, Emitter").attr({x: 750, y: 50});
-    o = Crafty.e("2D, PIXI, Emitter").attr({x: 50, y: 430});
-    p = Crafty.e("2D, PIXI, Emitter").attr({x: 750, y: 430});
-    
-    //Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 700, y: 100}).nucleon_fillWave();
-    //Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 100, y: 350}).nucleon_fillWave();
-    
-    //f2 = Crafty.e("2D, PIXI, Nucleon, Anti").attr({x: 600, y: 300});
-    //f2.nucleon_fillWave();
-    
-    f = Crafty.e("2D, PIXI, Nucleon, Standard").attr({x: 200, y: 200});
-    //f.wave_addParticle(Crafty.e('2D, PIXI, Particle, Standard'));
-    /*f.wave_setCapacity(25);
-    f.nucleon_style.color = 0x6baff5;
-    f.nucleon_setGraphics();*/
-    //f.wave_hostileComponent = "Anti";
-    f.nucleon_fillWave();
-    
-    /*for ( var c = 50; c > 0; c-- ) {
-        var b = Crafty.e("2D, PIXI, Boid, Particle").attr({ x: Math.random()*800, y: Math.random()*480 });
-        f.wave_addParticle(b);
-    }*/
-    /*for ( var c = 50; c > 0; c-- ) {
-        f.flock_boids[i].particle_die();
-    }*/
-    
-    d = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 200, h: 20, rotation: 90});
-    c = Crafty.e("2D, PIXI, PolyK, Barrier").attr({x: 500, y: 240, w: 100, h: 100, rotation: 45});
-    
-    /*e = Crafty.e("2D, PIXI, PolyK").attr({x: 300, y: 240, w: 200, h: 20, rotation: 90});
-    e.pixi_setGraphics();
-    e.pixi_setInteractive( true, true );
-    e.pixi_setHitArea();
-    e.polyk_setPolygon();*/
-    
-    /*graphics = new PIXI.Graphics();
-    Crafty.pixi.container.addChild(graphics);
-    graphics.beginFill(0xAA0000);
-    graphics.drawCircle(100, 100, 200);
-    graphics.interactive = true;
-    graphics.hitArea = new PIXI.Rectangle(-100, -100, 200, 200);
-    graphics.drag = false;
-    graphics.mousedown = graphics.touchstart = function(data) {
-	console.log(data);
-    };*/
-    
-    bg = new PIXI.Graphics();
-    Crafty.pixi.container.addChild(bg);
-	
 };
     
 Math.toPolar = function(cart) {

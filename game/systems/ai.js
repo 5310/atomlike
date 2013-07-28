@@ -10,7 +10,7 @@ Crafty.extend({ai: {
 	
 	init: function() {
 		
-		Crafty.ai.limit = 6;
+		Crafty.ai.limit = 4;
 		Crafty.ai.age = 0;
 		Crafty.ai.pause = 4;
 		Crafty.ai.pauseMax = 60;
@@ -29,11 +29,11 @@ Crafty.extend({ai: {
 						Crafty.ai.create( 5+Math.floor((Crafty.ai.age-10)/2), 1 );
 					} else if ( Crafty.ai.age > 30 && Crafty.ai.age <= 60 )  {
 						for ( var i = Math.floor(Crafty.ai.age/10); i > 0 ; i-- ) {
-							Crafty.ai.create( 5 + Crafty.ai.age - Math.floor(Crafty.ai.age/10)*10, 1 );						
+							Crafty.ai.create( 5 + Crafty.ai.age - Math.floor(Crafty.ai.age/15)*10, 1 );						
 						}
 					} else {
 						for ( var i = Math.floor(Crafty.ai.age/10); i > 0 ; i-- ) {
-							Crafty.ai.create( 15, 1 );						
+							Crafty.ai.create( 12, 1 );						
 						}
 					}
 				}

@@ -40,7 +40,7 @@ Crafty.c('Particle', {
 		
 		graphics.beginFill(fillColor);
 		graphics.lineStyle( lineWeight, lineColor, lineAlpha );
-		graphics.drawCircle( 0, 0, radius*this.particle_health/this.particle_healthMax );	
+		graphics.drawCircle( 0, 0, radius*this.particle_health/this.particle_healthMax*2 );	
 		graphics.endFill();
 		
 		this.pixi_setGraphics(graphics);

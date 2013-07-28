@@ -11,8 +11,8 @@ Crafty.c('Anti', {
 			this.nucleon_property = Crafty.clone({
 				speed: PROPERTY.SPEED.MIN,
 				flavor: PROPERTY.FLAVOR.CONCISE,
-				capacity: PROPERTY.CAPACITY.MIN,
-				entanglement: PROPERTY.ENTANGLEMENT.MIN,
+				capacity: 1,
+				entanglement: 0,
 				damage: 2,
 				range: PROPERTY.RANGE.MIN,
 				health: PROPERTY.HEALTH.MIN,
@@ -104,12 +104,12 @@ Crafty.c('Standard', {
 		if ( this.has('Nucleon') )	{
 			
 			this.nucleon_property = Crafty.clone({
-				speed: PROPERTY.SPEED.MIN,
+				speed: 2,
 				flavor: PROPERTY.FLAVOR.CONCISE,
-				capacity: PROPERTY.CAPACITY.MAX,
+				capacity: 10,
 				entanglement: PROPERTY.ENTANGLEMENT.MIN,
 				damage: PROPERTY.DAMAGE.MIN,
-				range: PROPERTY.RANGE.MIN,
+				range: 100,
 				health: 2,
 			});
 			this.nucleon_setProperty();
@@ -140,7 +140,7 @@ Crafty.c('Standard', {
 			
 			this.bind( 'WorldEnterFrame', function(data) {
 				
-				if ( this.wave_hostileArea && (data.frame+this[0])%10 == 0 && this.flock_boids.length < this.wave_property.capacity ) {
+				if ( this.wave_hostileArea && (data.frame+this[0])%this.nucleon_property.entanglement == 0 && this.flock_boids.length < this.wave_property.capacity ) {
 					
 					try {
 						
@@ -148,7 +148,7 @@ Crafty.c('Standard', {
 						var particle;
 						var attempts = 10;
 						//var area = new Crafty.circle( this.wave_hostileArea.x, this.wave_hostileArea.y, 50 );
-						var area = new Crafty.circle( this.flock_center.x, this.flock_center.y, 50 );
+						var area = new Crafty.circle( this.flock_center.x, this.flock_center.y, 100 );
 						do {
 							particles = Crafty('Particle Nascent');
 							particle = Crafty(particles[Math.floor(Math.random()*particles.length)]);
