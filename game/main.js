@@ -19,6 +19,8 @@ window.onload = function() {
     b.pixi_setGraphics();
     b.pixi_setContainer(Crafty.pixi.background);*/
     
+    m = Crafty.e("2D, PIXI, Emitter").attr({x: 50, y: 50});
+    
     Crafty.e("2D, PIXI, Nucleon").attr({x: 700, y: 100}).nucleon_fillWave();
     Crafty.e("2D, PIXI, Nucleon").attr({x: 100, y: 350}).nucleon_fillWave();
     
