@@ -3,6 +3,7 @@ Crafty.c('Particle', {
 	particle_wave: undefined,
 	
 	particle_health: undefined,
+	particle_healthMax: undefined,
 	
 	init: function() {
 		
@@ -11,7 +12,7 @@ Crafty.c('Particle', {
 		
 		this.particle_wave = null,
 		
-		this.particle_health = 1,
+		this.particle_health = this.particle_healthMax = 2;
 		
 		this.particle_setGraphics();
 		
@@ -39,7 +40,7 @@ Crafty.c('Particle', {
 		
 		graphics.beginFill(fillColor);
 		graphics.lineStyle( lineWeight, lineColor, lineAlpha );
-		graphics.drawCircle( 0, 0, radius );	
+		graphics.drawCircle( 0, 0, radius*this.particle_health/this.particle_healthMax );	
 		graphics.endFill();
 		
 		this.pixi_setGraphics(graphics);
@@ -48,6 +49,7 @@ Crafty.c('Particle', {
 	
 	particle_damage: function(damage) {
 		this.particle_health -= damage;
+		this.particle_setGraphics();
 		if ( this.particle_health <= 0 ) this.destroy();
 	},
 	
