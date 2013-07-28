@@ -37,7 +37,8 @@ That's it. If I can iron out the performance issues, then I will at least comple
 
 ### Warning
 
-The game _will_ lag at some point. Please close the tab if it gets to be too much lest it crash your browser or worse...
+- The game _will_ lag at some point. Please close the tab if it gets to be too much lest it crash your browser or worse...
+- Totally forgot that the scrolling does not work in Firefox due to non-standard events. I'll fix it _later..._
 
 
 Performance Roadblocks
