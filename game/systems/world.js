@@ -110,10 +110,19 @@ Crafty.extend({world: {
 		var step = data.wheelDelta > 0 ? -1 : 1;
 		var zoom = Crafty.world.getZoom()-0.1*step
 		Crafty.world.setZoom(zoom);
-		Crafty.trigger( "WorldZoomChanged", {zoom:zoom});
 	},
 	
 	setZoom: function( f, centerX, centerY ) {
+		var f = f;
+		var fMinW = (Crafty.pixi.renderer.width/2)/this.w;
+		var fMinH = (Crafty.pixi.renderer.height/2)/this.h;
+		var fMin = fMinW > fMinH ? fMinH : fMinW;
+		if ( f <= fMin ) {
+			f = fMin;
+		} else if ( f >= 2 ) {
+			f = 2;
+		}
+		Crafty.trigger( "WorldZoomChanged", {zoom:f});
 		var cx = centerX !== undefined ? centerX : Crafty.pixi.renderer.width/2;
 		var cy = centerY !== undefined ? centerY : Crafty.pixi.renderer.height/2
 		var dist = Math.vecSub( [ cx, cy ], [ Crafty.pixi.container.position.x, Crafty.pixi.container.position.y ] );
