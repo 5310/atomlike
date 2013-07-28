@@ -3,19 +3,27 @@
 	padding: 0;
 }
 
+body {
+	background: #ccc;
+}
+
 #cr-stage {
 	display: none;
 	opacity: 0.5;
-	position: absolute;
 }
 
 #px-stage {
 	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
 }
 
 #px-stage canvas {
-	/* http://bit.ly/163RUHV */
+	/* http://bit.ly/16cSwx8 */
 	background:url(
-		data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATUlEQVQYV4XQ0QkAIAgE0JzF/UdyluICD5XSviqeeJyY2V7hqKrEN+4wEuEPARN2iHBCF9Y8nqn+P4NXhI0J1gYw4LEIO8SME0r1TKUfEoQ1+UtkV60AAAAASUVORK5CYII=
+		data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAS0lEQVQYV4XQwQ0AMAQF0FrF/iuxipaDoC3/RPKSL4CIZIUgYlxtZuYFEf6QYocdcjghg3JSj9Kbai74QtqY4A+l6g45nFB6z/T0DdlWQOU7v3I0AAAAAElFTkSuQmCC
 	) repeat;
+	border: 2px solid #aaa;
 }
