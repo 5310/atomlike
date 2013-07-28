@@ -77,7 +77,7 @@ Crafty.c('Anti', {
 							Crafty.world.overlay.lineStyle(0);
 							Crafty.world.overlay.moveTo(0,0);
 							
-							j.emitter_damage(this.wave_property.damage);
+							j.emitter_damage(this.wave_property.damage/5);
 							
 						}
 							

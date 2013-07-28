@@ -12,18 +12,18 @@ Crafty.extend({ai: {
 		
 		Crafty.ai.limit = 6;
 		Crafty.ai.age = 0;
-		Crafty.ai.pause = 10;
-		Crafty.ai.pausemax = 30;
+		Crafty.ai.pause = 4;
+		Crafty.ai.pauseMax = 60;
 		
 		Crafty.ai.score = 0,
 	
 		Crafty.bind( 'WorldEnterFrame', function(data) {
 				if ( data.frame%(60*Crafty.ai.pause) == 0 ) {
 					Crafty.ai.age++;
-					Crafty.pause++; Crafty.pause%=(Crafty.ai.pausemax+1);
+					Crafty.ai_pause+=2; Crafty.ai_pause%=(Crafty.ai.pauseMax+1);
 					Crafty.ai.score+=Crafty.ai.age*10;
 					if ( Crafty.ai.age > 0 && Crafty.ai.age <= 10 ) {
-						Crafty.ai.create( Crafty.ai.age, 1 );
+						Crafty.ai.create( Math.floor(Crafty.ai.age/2), 1 );
 					} else if ( Crafty.ai.age > 10 && Crafty.ai.age <= 30 ) {
 						Crafty.ai.create( 5+Math.floor((Crafty.ai.age-10)/2), 1 );
 						Crafty.ai.create( 5+Math.floor((Crafty.ai.age-10)/2), 1 );
@@ -39,6 +39,7 @@ Crafty.extend({ai: {
 				}
 				if ( data.frame%(60*Crafty.ai.pause*3) == 0 ) {
 					Crafty.ai.retarget();
+					if ( Crafty('Nucleon Standard').length <= 0 ) Crafty.trigger('AIEnd');
 				}
 		} );
 		
@@ -126,7 +127,7 @@ Crafty.extend({ai: {
 	},
 	
 	end: function() {
-		//Crafty.pause();
+		Crafty.pause();
 	}
 	
 }});
