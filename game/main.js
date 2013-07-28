@@ -32,6 +32,7 @@ window.onload = function() {
     //f2.nucleon_fillWave();
     
     f = Crafty.e("2D, PIXI, Nucleon, Standard").attr({x: 200, y: 200});
+    //f.wave_addParticle(Crafty.e('2D, PIXI, Particle, Standard'));
     /*f.wave_setCapacity(25);
     f.nucleon_style.color = 0x6baff5;
     f.nucleon_setGraphics();*/

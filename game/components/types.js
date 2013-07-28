@@ -138,6 +138,42 @@ Crafty.c('Standard', {
 				data.addComponent('Nascent');
 			} );
 			
+			this.bind( 'WorldEnterFrame', function(data) {
+				
+				if ( this.wave_hostileArea && (data.frame+this[0])%10 == 0 && this.flock_boids.length < this.wave_property.capacity ) {
+					
+					try {
+						
+						var particles;
+						var particle;
+						var attempts = 10;
+						//var area = new Crafty.circle( this.wave_hostileArea.x, this.wave_hostileArea.y, 50 );
+						var area = new Crafty.circle( this.flock_center.x, this.flock_center.y, 50 );
+						do {
+							particles = Crafty('Particle Nascent');
+							particle = Crafty(particles[Math.floor(Math.random()*particles.length)]);
+							attempts--;
+							var inrange = area.containsPoint( particle.x, particle.y );
+						} while ( attempts >= 0 && !inrange )
+						
+						if ( inrange ) {
+						
+							this.wave_addParticle(particle);
+							
+							Crafty.world.overlay.lineStyle( 2, this.wave_style.lineColor, 0.8 );							
+							Crafty.world.overlay.moveTo( this.wave_hostileArea.x, this.wave_hostileArea.y );
+							Crafty.world.overlay.lineTo( particle.x, particle.y );
+							Crafty.world.overlay.lineStyle(0);
+							Crafty.world.overlay.moveTo(0,0);	
+												
+						}
+						
+					} catch (e) {}
+					
+				}
+				
+			} );
+			
 		}	
 		
 	},	

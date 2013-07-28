@@ -30,7 +30,10 @@ Crafty.c('Flock', {
 	
 	flock_inertia: undefined,
 	
-	flock_center: undefined,
+	flock_center: {
+		x: undefined,
+		y: undefined,
+	},
 	
 	init: function() {
 		
@@ -170,12 +173,14 @@ Crafty.c('Flock', {
 			
 		}
 		
+		this.flock_center.x = 0;
+		this.flock_center.y = 0;
 		for ( var i in this.flock_boids ) {
 			var boid = this.flock_boids[i];
 			boid.x += boid.boid_velocity.x;
 			boid.y += boid.boid_velocity.y;
-			this.flock_center.x = boid.x;
-			this.flock_center.y = boid.y;
+			this.flock_center.x += boid.x;
+			this.flock_center.y += boid.y;
 		}
 		this.flock_center.x /= this.flock_boids.length;
 		this.flock_center.y /= this.flock_boids.length;
