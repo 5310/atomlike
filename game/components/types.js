@@ -45,9 +45,7 @@ Crafty.c('Anti', {
 			
 			this.bind( 'WorldEnterFrame', function(data) {
 				
-				if ( this.wave_hostile && (data.frame+this[0])%10 == 0 ) {
-			
-					var flockArea = new Crafty.circle( this.flock_center.x, this.flock_center.y, this.wave_property.range*2 );
+				if ( this.wave_hostile && (data.frame+this[0])%15 == 0 ) {
 							
 					try {
 						
@@ -58,7 +56,7 @@ Crafty.c('Anti', {
 							emitters = Crafty("Emitter");
 							emitter = Crafty(emitters[Math.floor(Math.random()*emitters.length)]);
 							attempts--;
-						} while ( attempts >= 0 && this.wave_hostileArea && !( this.wave_hostileArea.containsPoint( emitter.x, emitter.y ) || flockArea.containsPoint( emitter.x, emitter.y ) ) )
+						} while ( attempts >= 0 && this.wave_hostileArea && !this.wave_hostileArea.containsPoint( emitter.x, emitter.y ) )
 							
 						var i = this.flock_boids[Math.floor(Math.random()*this.flock_boids.length)];
 						var j = emitter;
