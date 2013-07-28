@@ -132,7 +132,9 @@ Crafty.extend({ai: {
 	},
 	
 	end: function() {
-		console.log('dead');
+		var text = "Game Over: You've scored "+Math.ceil(Crafty.ai.score)+"points!";
+		console.log(text);
+		alert(text);
 		Crafty.pause();
 	}
 	
