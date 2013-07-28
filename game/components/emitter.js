@@ -49,7 +49,7 @@ Crafty.c('Emitter', {
 			var margin = 5;
 			var radius = this.emitter_radiusInner + (this.emitter_radiusMax-this.emitter_radiusInner)*this.emitter_health/this.emitter_healthMax;
 			var area = new Crafty.circle( this.x, this.y, radius );
-			var capacity = radius*this.emitter_health/this.emitter_healthMax;
+			var capacity = radius*this.emitter_health/this.emitter_healthMax/2;
 			
 			if ( capacity <= 0 ) return;
 			Crafty("Particle").each(function() {
