@@ -37,7 +37,7 @@ Crafty.extend({ai: {
 						}
 					}
 				}
-				if ( data.frame%(60*Crafty.ai.pause*3) == 0 ) {
+				if ( data.frame%(60*Crafty.ai.pauseMax/2) == 0 ) {
 					Crafty.ai.retarget();
 					if ( Crafty('Nucleon Standard').length <= 0 ) Crafty.trigger('AIEnd');
 				}
@@ -110,15 +110,20 @@ Crafty.extend({ai: {
 			var x = Crafty.pixi.renderer.width/2;
 			var y = Crafty.pixi.renderer.height/2;
 		
-			if ( emitters.length > 1 ) {
-				var emitter = Crafty(emitters[Math.floor(Math.random()*emitters.length)]);
-				x = emitter.x;
-				y = emitter.y;
-			} else if ( emitters.length == 1 ) {
-				x = emitters.x;
-				y = emitters.y;
+			if ( Math.random() <= 0.25 ) {
+				x = Math.random()*Crafty.world.w;
+				y = Math.random()*Crafty.world.h;
 			} else {
-				Crafty.trigger('AIEnd');
+				if ( emitters.length > 1 ) {
+					var emitter = Crafty(emitters[Math.floor(Math.random()*emitters.length)]);
+					x = emitter.x;
+					y = emitter.y;
+				} else if ( emitters.length == 1 ) {
+					x = emitters.x;
+					y = emitters.y;
+				} else {
+					Crafty.trigger('AIEnd');
+				}
 			}
 			
 			this.attr({x:x,y:y}); 
@@ -127,6 +132,7 @@ Crafty.extend({ai: {
 	},
 	
 	end: function() {
+		console.log('dead');
 		Crafty.pause();
 	}
 	
